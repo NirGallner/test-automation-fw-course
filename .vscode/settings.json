@@ -27,7 +27,8 @@
         "/^git status --short && git add specs/001-base-project-scaffold/spec\\.md && git commit -m \"\\[Spec Kit\\] Commit plan clarifications for 001\" && git status --short$/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        "continue": true
     }
 }
 

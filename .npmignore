@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+coverage/
+reports/
+playwright-report/
+specs/
+.vscode/
+.specify/
+*.log
+.env*

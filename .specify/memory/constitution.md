@@ -1,9 +1,8 @@
 <!--
 Sync Impact Report
-Version change: 1.1.0 -> 1.2.0
+Version change: 1.2.0 -> 1.3.0
 Modified principles:
-- IV. Tool-Agnostic Contracts (clarified Playwright adapter-only role)
-- V. Strict TypeScript, OOP, and Failure Governance (mandated Vitest for unit tests)
+- V. Strict TypeScript, OOP, and Failure Governance (explicitly forbids async/await syntax in Layers 1-4)
 Added sections:
 - None
 Removed sections:
@@ -94,10 +93,12 @@ a constitution violation.
 
 Asynchronous code MUST be minimized to the smallest necessary surface. `async`
 and `await` MUST only be introduced where a genuinely asynchronous operation
-exists in the underlying adapter. Layers 1–4 MUST expose synchronous-style APIs
-wherever the adapter layer permits it. Wrapping synchronous logic in `Promise`
-or `async` for stylistic consistency is prohibited; every async declaration MUST
-be traceable to an I/O or timer boundary in the adapter.
+exists in the underlying adapter. Layers 1-4 MUST NOT use `async` or `await`
+syntax; they MUST compose asynchronous work with direct Promise returns or
+Promise chaining so orchestration remains synchronous-style at the language
+surface. Wrapping synchronous logic in `Promise` or `async` for stylistic
+consistency is prohibited; every asynchronous boundary MUST be traceable to an
+I/O or timer boundary in the adapter or framework hook surface.
 
 Unit tests for domain and support classes MUST be authored with Vitest. Adapter
 and end-to-end behavior validation may use Playwright automation through Layer 5
@@ -130,10 +131,9 @@ runner.
 - All source MUST apply OOP discipline: classes MUST encapsulate all behavior
 	pertaining to their domain concept; standalone multi-purpose utility functions
 	outside designated utility or factory classes are prohibited.
-- Async surface area MUST be minimized: every new `async` method or `await`
-	expression MUST be justified at the point of introduction; if the operation has
-	no genuinely asynchronous component in the adapter, it MUST be written
-	synchronously.
+- Async surface area MUST be minimized: Layers 1-4 MUST NOT introduce `async`
+	methods or `await` expressions. Adapter and framework-boundary code may use
+	them only when required by true asynchronous operations.
 
 ## Delivery Workflow & Quality Gates
 
@@ -169,4 +169,4 @@ Every pull request and feature plan MUST state how it complies with these
 principles or explicitly justify an approved exception. Unjustified deviations
 MUST be corrected before merge.
 
-**Version**: 1.2.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13
+**Version**: 1.3.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13

@@ -53,9 +53,9 @@ end-to-end wiring from Gherkin to browser automation.
   return destination Page Object where navigation occurs.
 - OOP gate: domain behavior is encapsulated in classes; no standalone
   multi-purpose utility functions.
-- Async minimization: async boundaries are limited to adapter/browser I/O,
-  while orchestration logic remains as synchronous-style as tool constraints
-  allow.
+- Async minimization: `async/await` syntax is limited to adapter/framework
+  boundaries, while Layers 1-4 use synchronous-style orchestration via direct
+  Promise composition.
 
 Gate Result: PASS
 

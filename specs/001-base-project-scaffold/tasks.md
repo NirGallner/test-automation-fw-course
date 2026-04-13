@@ -11,11 +11,11 @@
 
 **Purpose**: Initialize repository tooling and baseline project structure.
 
-- [ ] T001 Initialize Node/TypeScript automation project metadata and scripts in package.json
-- [ ] T002 Add strict TypeScript compiler configuration in tsconfig.json
-- [ ] T003 [P] Add repository ignore rules for dependencies, outputs, and reports in .gitignore
-- [ ] T004 [P] Create five-layer scaffold directories with placeholder ownership docs in src/layer2-step-definitions/README.md
-- [ ] T005 [P] Create layer 1 gherkin test directory structure in tests/layer1-gherkin/.gitkeep
+- [X] T001 Initialize Node/TypeScript automation project metadata and scripts in package.json
+- [X] T002 Add strict TypeScript compiler configuration in tsconfig.json
+- [X] T003 [P] Add repository ignore rules for dependencies, outputs, and reports in .gitignore
+- [X] T004 [P] Create five-layer scaffold directories with placeholder ownership docs in src/layer2-step-definitions/README.md
+- [X] T005 [P] Create layer 1 gherkin test directory structure in tests/layer1-gherkin/.gitkeep
 
 ---
 
@@ -25,16 +25,16 @@
 
 **CRITICAL**: No user story implementation starts until this phase completes.
 
-- [ ] T006 Define tool-agnostic browser port contract in src/layer5-abstractions/ports/ibrowser.ts
-- [ ] T007 [P] Define tool-agnostic page port contract in src/layer5-abstractions/ports/ipage.ts
-- [ ] T008 [P] Define tool-agnostic element port contract in src/layer5-abstractions/ports/ielement.ts
-- [ ] T009 Implement Playwright browser adapter conforming to IBrowser in src/layer5-abstractions/adapter/playwright-browser.adapter.ts
-- [ ] T010 [P] Implement Playwright page adapter conforming to IPage in src/layer5-abstractions/adapter/playwright-page.adapter.ts
-- [ ] T011 [P] Implement Playwright element adapter conforming to IElement in src/layer5-abstractions/adapter/playwright-element.adapter.ts
-- [ ] T012 Implement adapter resolution and lifecycle management in src/support/driver-registry.ts
-- [ ] T013 Implement typed failure context and escalation seam in src/support/exception-manager.ts
-- [ ] T014 Configure Playwright headless defaults, retries, timeout, and reporters in playwright.config.ts
-- [ ] T015 Configure Cucumber TypeScript execution profile in cucumber.js
+- [X] T006 Define tool-agnostic browser port contract in src/layer5-abstractions/ports/ibrowser.ts
+- [X] T007 [P] Define tool-agnostic page port contract in src/layer5-abstractions/ports/ipage.ts
+- [X] T008 [P] Define tool-agnostic element port contract in src/layer5-abstractions/ports/ielement.ts
+- [X] T009 Implement Playwright browser adapter conforming to IBrowser in src/layer5-abstractions/adapter/playwright-browser.adapter.ts
+- [X] T010 [P] Implement Playwright page adapter conforming to IPage in src/layer5-abstractions/adapter/playwright-page.adapter.ts
+- [X] T011 [P] Implement Playwright element adapter conforming to IElement in src/layer5-abstractions/adapter/playwright-element.adapter.ts
+- [X] T012 Implement adapter resolution and lifecycle management in src/support/driver-registry.ts
+- [X] T013 Implement typed failure context and escalation seam in src/support/exception-manager.ts
+- [X] T014 Configure Playwright headless defaults, retries, timeout, and reporters in playwright.config.ts
+- [X] T015 Configure Cucumber TypeScript execution profile in cucumber.js
 
 **Checkpoint**: Foundation ready. User stories can now be implemented and tested independently.
 
@@ -48,16 +48,16 @@
 
 ### Tests for User Story 1
 
-- [ ] T016 [P] [US1] Add smoke Gherkin scenario validating reachable URL and non-empty title in tests/layer1-gherkin/smoke.feature
-- [ ] T017 [P] [US1] Add unit tests for home smoke interaction behavior in tests/unit/home-smoke.task.spec.ts
+- [X] T016 [P] [US1] Add smoke Gherkin scenario validating reachable URL and non-empty title in tests/layer1-gherkin/smoke.feature
+- [X] T017 [P] [US1] Add unit tests for home smoke interaction behavior in tests/unit/home-smoke.task.spec.ts
 
 ### Implementation for User Story 1
 
-- [ ] T018 [P] [US1] Implement page object atomic actions and page-scoped business methods in src/layer4-page-objects/home.page.ts
-- [ ] T019 [P] [US1] Implement smoke business task orchestration for home page in src/tasks/home-smoke.task.ts
-- [ ] T020 [US1] Implement step definitions mapping Gherkin to business task calls in src/layer2-step-definitions/smoke.steps.ts
-- [ ] T021 [US1] Implement Cucumber hooks for browser setup/teardown and failure routing in src/support/hooks.ts
-- [ ] T022 [US1] Wire Cucumber CLI test script for smoke execution in package.json
+- [X] T018 [P] [US1] Implement page object atomic actions and page-scoped business methods in src/layer4-page-objects/home.page.ts
+- [X] T019 [P] [US1] Implement smoke business task orchestration for home page in src/tasks/home-smoke.task.ts
+- [X] T020 [US1] Implement step definitions mapping Gherkin to business task calls in src/layer2-step-definitions/smoke.steps.ts
+- [X] T021 [US1] Implement Cucumber hooks for browser setup/teardown and failure routing in src/support/hooks.ts
+- [X] T022 [US1] Wire Cucumber CLI test script for smoke execution in package.json
 
 **Checkpoint**: User Story 1 is fully functional and independently testable.
 
@@ -71,14 +71,14 @@
 
 ### Tests for User Story 2
 
-- [ ] T023 [P] [US2] Add structure verification tests for required scaffold paths and config files in tests/unit/project-structure.spec.ts
+- [X] T023 [P] [US2] Add structure verification tests for required scaffold paths and config files in tests/unit/project-structure.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T024 [P] [US2] Document onboarding workflow and architecture map in README.md
-- [ ] T025 [P] [US2] Add layer ownership notes for step definitions, tasks, page objects, and abstractions in src/layer4-page-objects/README.md
-- [ ] T026 [US2] Add script that validates layer directory and config-file presence in scripts/verify-structure.mjs
-- [ ] T027 [US2] Wire structure verification command for contributors in package.json
+- [X] T024 [P] [US2] Document onboarding workflow and architecture map in README.md
+- [X] T025 [P] [US2] Add layer ownership notes for step definitions, tasks, page objects, and abstractions in src/layer4-page-objects/README.md
+- [X] T026 [US2] Add script that validates layer directory and config-file presence in scripts/verify-structure.mjs
+- [X] T027 [US2] Wire structure verification command for contributors in package.json
 
 **Checkpoint**: User Stories 1 and 2 both work independently and onboarding is self-service.
 
@@ -92,14 +92,14 @@
 
 ### Tests for User Story 3
 
-- [ ] T028 [P] [US3] Add Playwright configuration tests for CI retries and reporter settings in tests/unit/playwright-config.spec.ts
+- [X] T028 [P] [US3] Add Playwright configuration tests for CI retries and reporter settings in tests/unit/playwright-config.spec.ts
 
 ### Implementation for User Story 3
 
-- [ ] T029 [P] [US3] Add CI-oriented test and report scripts in package.json
-- [ ] T030 [P] [US3] Document CI execution requirements and artifact expectations in docs/ci.md
-- [ ] T031 [US3] Add architecture boundary guard that detects Playwright imports outside adapters in scripts/check-playwright-boundary.mjs
-- [ ] T032 [US3] Wire boundary guard command into validation workflow in package.json
+- [X] T029 [P] [US3] Add CI-oriented test and report scripts in package.json
+- [X] T030 [P] [US3] Document CI execution requirements and artifact expectations in docs/ci.md
+- [X] T031 [US3] Add architecture boundary guard that detects Playwright imports outside adapters in scripts/check-playwright-boundary.mjs
+- [X] T032 [US3] Wire boundary guard command into validation workflow in package.json
 
 **Checkpoint**: All user stories are independently functional with CI-ready defaults.
 
@@ -109,9 +109,9 @@
 
 **Purpose**: Final consistency, boundary hardening, and quickstart alignment.
 
-- [ ] T033 [P] Add contract-conformance tests for automation ports and adapters in tests/unit/automation-ports.contract.spec.ts
-- [ ] T034 [P] Add strict typecheck and boundary checks to default validation workflow in package.json
-- [ ] T035 Update quickstart command flow to match implemented scripts and checks in specs/001-base-project-scaffold/quickstart.md
+- [X] T033 [P] Add contract-conformance tests for automation ports and adapters in tests/unit/automation-ports.contract.spec.ts
+- [X] T034 [P] Add strict typecheck and boundary checks to default validation workflow in package.json
+- [X] T035 Update quickstart command flow to match implemented scripts and checks in specs/001-base-project-scaffold/quickstart.md
 
 ---
 
@@ -119,12 +119,12 @@
 
 **Purpose**: Ensure the same layer 1-4 code can run on either Playwright or Vibium by changing runtime configuration only.
 
-- [ ] T036 Add Vibium dependency and engine selection scripts in package.json
-- [ ] T037 [P] Define driver-selection environment contract and defaults in src/support/runtime-config.ts
-- [ ] T038 [P] Implement Vibium adapter classes conforming to existing ports in src/layer5-abstractions/adapter/vibium-browser.adapter.ts
-- [ ] T039 Implement config-only adapter switching in driver registry strategy logic in src/support/driver-registry.ts
-- [ ] T040 Add cross-driver parity smoke validation that runs unchanged scenarios on both drivers in tests/unit/driver-parity.spec.ts
-- [ ] T041 Document how to run unchanged tests with either Playwright or Vibium using config only in docs/driver-selection.md
+- [X] T036 Add Vibium dependency and engine selection scripts in package.json
+- [X] T037 [P] Define driver-selection environment contract and defaults in src/support/runtime-config.ts
+- [X] T038 [P] Implement Vibium adapter classes conforming to existing ports in src/layer5-abstractions/adapter/vibium-browser.adapter.ts
+- [X] T039 Implement config-only adapter switching in driver registry strategy logic in src/support/driver-registry.ts
+- [X] T040 Add cross-driver parity smoke validation that runs unchanged scenarios on both drivers in tests/unit/driver-parity.spec.ts
+- [X] T041 Document how to run unchanged tests with either Playwright or Vibium using config only in docs/driver-selection.md
 
 ---
 

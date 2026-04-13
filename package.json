@@ -1,0 +1,36 @@
+{
+  "name": "playwright-clarivate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Five-layer TypeScript Playwright+Cucumber automation scaffold",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "npm run validate",
+    "test:unit": "vitest run",
+    "test:smoke": "cucumber-js --config cucumber.js",
+    "test:ci": "CI=true npm run validate",
+    "test:driver:playwright": "DRIVER_ENGINE=playwright cucumber-js --config cucumber.js",
+    "test:driver:vibium": "DRIVER_ENGINE=vibium cucumber-js --config cucumber.js",
+    "test:drivers": "npm run test:driver:playwright && npm run test:driver:vibium",
+    "verify:structure": "node scripts/verify-structure.mjs",
+    "check:async-surface": "node scripts/check-async-surface.mjs",
+    "check:boundary": "node scripts/check-playwright-boundary.mjs",
+    "validate": "npm run typecheck && npm run test:unit && npm run verify:structure && npm run check:async-surface && npm run check:boundary && npm run test:smoke"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "playwright": "^1.54.2",
+    "vibium": "file:vendor/vibium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.0.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
