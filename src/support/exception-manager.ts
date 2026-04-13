@@ -22,4 +22,12 @@ export class ExceptionManager {
 
     throw new Error(detail, { cause: context.error });
   }
+
+  public handleCleanupFailure(context: FailureContext): never {
+    return this.handleFailure({
+      ...context,
+      source: `${context.source}.cleanup`,
+      message: context.message || 'Fixture cleanup failed'
+    });
+  }
 }

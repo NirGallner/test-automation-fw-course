@@ -2,6 +2,7 @@ import { PlaywrightBrowserAdapter } from '../layer5-abstractions/adapter/playwri
 import { SeleniumBrowserAdapter } from '../layer5-abstractions/adapter/selenium/selenium-browser.adapter';
 import { VibiumBrowserAdapter } from '../layer5-abstractions/adapter/vibium/vibium-browser.adapter';
 import { IAutomationEngine } from '../layer5-abstractions/ports/iautomation-engine';
+import { AutomationFixtureManager } from './lifecycle-fixtures';
 import { resolveRuntimeConfig, type DriverEngine } from './runtime-config';
 
 type EngineFactory = () => Promise<IAutomationEngine>;
@@ -21,6 +22,7 @@ export class DriverRegistry {
     const factory = DriverRegistry.resolveFactory(DriverRegistry.getSelectedEngine());
     DriverRegistry.engine = await factory();
     await DriverRegistry.engine.newPage();
+    AutomationFixtureManager.noteDriverSessionStarted('runtime');
     return DriverRegistry.engine;
   }
 
@@ -31,6 +33,7 @@ export class DriverRegistry {
 
     await DriverRegistry.engine.close();
     DriverRegistry.engine = null;
+    AutomationFixtureManager.noteDriverSessionClosed('runtime');
   }
 
   private static resolveFactory(engine: DriverEngine): EngineFactory {

@@ -3,6 +3,11 @@ export type DriverEngine = 'playwright' | 'vibium' | 'selenium';
 export interface RuntimeConfig {
   driverEngine: DriverEngine;
   baseUrl: string;
+  fixtures: {
+    fixtureTag: string;
+    workerFixtureTag: string;
+    scenarioFixtureTag: string;
+  };
 }
 
 const ALLOWED_ENGINES: DriverEngine[] = ['playwright', 'vibium', 'selenium'];
@@ -25,6 +30,11 @@ export const resolveDriverEngine = (rawValue?: string): DriverEngine => {
 export const resolveRuntimeConfig = (): RuntimeConfig => {
   const driverEngine = resolveDriverEngine(process.env.DRIVER_ENGINE);
   const baseUrl = process.env.SMOKE_URL ?? 'https://example.com';
+  const fixtures = {
+    fixtureTag: process.env.SMOKE_FIXTURE_TAG ?? '@fixtures',
+    workerFixtureTag: process.env.SMOKE_WORKER_FIXTURE_TAG ?? '@fixture-worker',
+    scenarioFixtureTag: process.env.SMOKE_SCENARIO_FIXTURE_TAG ?? '@fixture-scenario'
+  };
 
-  return { driverEngine, baseUrl };
+  return { driverEngine, baseUrl, fixtures };
 };
