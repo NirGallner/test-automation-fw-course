@@ -8,9 +8,15 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: The examples below include test tasks. Include tests whenever the
+feature or constitution requires validation of ports/adapters, layer contracts,
+AI recovery behavior, or cross-layer workflows.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+
+When features add or revise Gherkin coverage, include tasks that keep scenarios
+focused on business intent rather than transient UI labels or incidental
+navigation paths.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -20,7 +26,8 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
+- **Single project**: `src/core`, `src/application`, `src/adapters`, `src/ui`,
+  `src/support`, and `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
@@ -48,9 +55,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Create the hexagonal project structure per implementation plan
+- [ ] T002 Initialize TypeScript strict-mode tooling and shared config
+- [ ] T003 [P] Create baseline ports, adapter folders, and layer ownership rules
 
 ---
 
@@ -62,12 +69,12 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 Define core interfaces such as browser, page, element, and AI ports
+- [ ] T005 [P] Implement the first concrete automation adapter behind those ports
+- [ ] T006 [P] Add ExceptionManager, failure classification, and logging pipeline
+- [ ] T007 Create builder utilities for complex test data and runtime state setup
+- [ ] T008 Implement environment/provider strategy selection and registry wiring
+- [ ] T009 Establish baseline page object decorators and recovery chain plumbing
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -83,17 +90,17 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] Contract test for new or changed ports/adapters
+- [ ] T011 [P] [US1] Integration or Gherkin test for the business journey
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T012 [P] [US1] Add or update business interaction logic in src/core/tasks/
+- [ ] T013 [P] [US1] Add or update page objects in src/ui/page-objects/
+- [ ] T014 [US1] Implement supporting ports/adapters in src/core/ports/ and src/adapters/
+- [ ] T015 [US1] Wire step definitions or application services without leaking tool types
+- [ ] T016 [US1] Extend ExceptionManager, healing rules, or smart rerun policy as needed
+- [ ] T017 [US1] Add telemetry/logging for user story 1 operations
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -107,15 +114,15 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T018 [P] [US2] Contract test for changed ports, decorators, or strategies
+- [ ] T019 [P] [US2] Integration or Gherkin test for the user journey
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T020 [P] [US2] Extend business interactions, builders, or registries for the new flow
+- [ ] T021 [US2] Implement required adapters, decorators, or AI chain handlers
+- [ ] T022 [US2] Add the feature flow in the correct layer-owned files
+- [ ] T023 [US2] Integrate with User Story 1 components without violating boundaries
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -129,14 +136,14 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US3] Contract test for ExceptionManager or AI recovery updates
+- [ ] T025 [P] [US3] Integration or Gherkin test for the user journey
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T026 [P] [US3] Add or update the relevant tasks, page objects, or support builders
+- [ ] T027 [US3] Implement the required recovery, exploration, or rerun behavior
+- [ ] T028 [US3] Add the feature flow in the correct layer-owned files
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -179,9 +186,9 @@ Examples of foundational tasks (adjust based on your project):
 ### Within Each User Story
 
 - Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
-- Core implementation before integration
+- Ports and domain contracts before adapters
+- Business interactions before step-definition wiring
+- Core and adapter implementation before cross-layer integration
 - Story complete before moving to next priority
 
 ### Parallel Opportunities
@@ -190,7 +197,7 @@ Examples of foundational tasks (adjust based on your project):
 - All Foundational tasks marked [P] can run in parallel (within Phase 2)
 - Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
 - All tests for a user story marked [P] can run in parallel
-- Models within a story marked [P] can run in parallel
+- Layer-owned tasks within a story marked [P] can run in parallel
 - Different user stories can be worked on in parallel by different team members
 
 ---
@@ -199,12 +206,12 @@ Examples of foundational tasks (adjust based on your project):
 
 ```bash
 # Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+Task: "Contract test for changed browser or AI ports in tests/contract/..."
+Task: "Gherkin or integration test for the user journey in tests/gherkin/... or tests/integration/..."
 
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+# Launch layer-safe implementation tasks for User Story 1 together:
+Task: "Add business interaction logic in src/core/tasks/..."
+Task: "Add page objects in src/ui/page-objects/..."
 ```
 
 ---
@@ -245,7 +252,9 @@ With multiple developers:
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
 - Each user story should be independently completable and testable
-- Verify tests fail before implementing
+- Verify tests fail before implementing when tests are part of the scope
+- Include explicit tasks whenever a feature adds or changes ports, adapters,
+  decorators, ExceptionManager logic, or AI recovery behavior
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

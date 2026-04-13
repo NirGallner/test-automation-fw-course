@@ -1,50 +1,126 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: 1.0.0 -> 1.0.1
+Modified principles:
+- II. Layered Test Flow -> II. Layered Test Flow
+Added sections:
+- None
+Removed sections:
+- None
+Templates requiring updates:
+- ✅ .specify/templates/plan-template.md
+- ✅ .specify/templates/spec-template.md
+- ✅ .specify/templates/tasks-template.md
+Follow-up TODOs:
+- None
+-->
+
+# Playwright Clarivate Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Hexagonal Core Boundaries
+The test system MUST follow a strict Hexagonal Architecture. Core test logic,
+business workflows, and domain policies MUST depend only on ports and domain
+types. Infrastructure implementations for Playwright, Cypress, AI providers,
+logging, and environment services MUST live behind adapters and MUST NOT define
+behavioral rules for the core. Any change that couples Layer 1, 2, or 3 to an
+automation engine is a constitution violation because it prevents tool
+replacement and obscures business intent.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Layered Test Flow
+The automation stack MUST preserve five explicit layers: Layer 1 Gherkin
+scenarios, Layer 2 Step Definitions, Layer 3 Business Interactions (Tasks),
+Layer 4 Page Object Model, and Layer 5 Tool-Agnostic Abstractions. Each layer
+MUST call only the next appropriate layer down. Step Definitions MUST remain a
+translation layer from business language to task execution. Business
+Interactions MUST coordinate one or more Page Objects to achieve an end-to-end
+goal. Page Objects MUST limit themselves to atomic interactions and element
+knowledge. Gherkin scenarios MUST describe stable business intent and outcomes
+rather than brittle UI wording, button labels, or exact navigation entry
+points, so minor copy changes or moving an action from a form to a menu do not
+force scenario rewrites when the user-visible capability is unchanged.
+Tool-specific browser primitives MUST be confined to adapters behind Layer 5
+interfaces.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. AI Recovery Chain
+AI-assisted behavior MUST be reactive, explicit, and composable. Failed find,
+read, or click operations MUST enter a Chain of Responsibility that attempts the
+standard locator, then the Healer, then the Explorer, and finally the Reporter.
+Decorator-based wrappers MUST add healing and logging without mutating the base
+Page Object contract. DiscoveryMode MUST be opt-in and MUST explore alternative
+navigation paths only after a failure signal. Smart reruns MUST only trigger
+when failure analysis identifies flakiness or environment lag, and the rerun
+reason plus adjusted wait strategy MUST be recorded.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Tool-Agnostic Contracts
+All business-facing layers MUST depend on interfaces such as IBrowser, IPage,
+IElement, and other domain contracts rather than Playwright or Cypress types.
+Playwright is the current adapter, but no Playwright-specific type, fixture, or
+locator abstraction may leak into Gherkin, Step Definitions, or Business
+Interactions. Strategy Pattern implementations MUST isolate multi-environment
+selection and AI provider selection. Singleton or Registry usage is allowed only
+for stable cross-cutting concerns such as tool-agnostic driver resolution and
+shared runtime configuration.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Strict TypeScript and Failure Governance
+TypeScript strict mode is mandatory across the repository. New code MUST avoid
+`any`, prefer generics for reusable action layers, and model failure states with
+explicit types. Complex test setup MUST use Builder Pattern implementations
+rather than ad hoc mutable fixtures. All execution failures MUST flow through a
+centralized ExceptionManager that decides whether to trigger AI exploration,
+invoke smart reruns, or fail the build. Logging, healing, and escalation
+decisions MUST be consistent and reviewable.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Implementation Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Architectural changes MUST document the impacted layers, affected ports,
+	required adapters, and why the chosen patterns are necessary.
+- Page Object classes MUST expose atomic actions and state queries only; they
+	MUST NOT contain business journey orchestration.
+- Business Interaction classes MUST express user goals such as checkout,
+	onboarding, or search refinement and compose multiple Page Objects through
+	tool-agnostic contracts.
+- Cucumber language MUST stay intent-focused and avoid overfitting to transient
+	labels, control names, or incidental interaction paths unless that wording or
+	path is itself the business requirement under test.
+- AI wrappers MUST preserve the original Page Object API surface while adding
+	healing, telemetry, and fallback coordination.
+- Environment-specific behavior MUST be selected through Strategy Pattern
+	implementations, not inline conditionals scattered across workflows.
+- Shared runtime state MUST be minimal, deterministic, and justified when a
+	Singleton or Registry is introduced.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Delivery Workflow & Quality Gates
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Every plan MUST pass a constitution check that confirms hexagonal boundaries,
+	layer ownership, tool-agnostic contracts, AI recovery responsibilities, and
+	ExceptionManager coverage.
+- Every specification MUST identify which layers change, which ports or adapters
+	are introduced, and whether AI healing, exploration, or smart reruns are part
+	of the feature behavior.
+- Every task list MUST include work for ports/adapters, layer-safe tests,
+	exception handling, and observability whenever those concerns are touched.
+- Reviews MUST reject features that leak Playwright-specific types above Layer 5
+	or bypass the ExceptionManager for recoverable failures.
+- Merges MUST preserve strict TypeScript guarantees and include validation that
+	the chosen design patterns were applied where the feature requires them.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution overrides conflicting local practices and templates.
+Amendments require: (1) a written rationale, (2) updates to dependent templates
+and guidance files, and (3) a clear migration note for any affected active
+specification or plan. Compliance review is mandatory during specification,
+planning, implementation, and code review.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Versioning policy follows semantic versioning for governance documents.
+MAJOR versions change or remove principles in a backward-incompatible way.
+MINOR versions add principles, sections, or materially stronger guidance.
+PATCH versions clarify wording without changing governance meaning.
+
+Every pull request and feature plan MUST state how it complies with these
+principles or explicitly justify an approved exception. Unjustified deviations
+MUST be corrected before merge.
+
+**Version**: 1.0.1 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13

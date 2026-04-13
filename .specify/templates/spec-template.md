@@ -20,6 +20,10 @@
   - Demonstrated to users independently
 -->
 
+Scenarios MUST describe durable business behavior. Avoid encoding transient
+button names, menu labels, or exact click paths unless the wording or path is
+itself a required outcome.
+
 ### User Story 1 - [Brief Title] (Priority: P1)
 
 [Describe this user journey in plain language]
@@ -82,6 +86,20 @@
   Fill them out with the right functional requirements.
 -->
 
+### Constitution Alignment *(mandatory)*
+
+- Identify which of the five architecture layers change and confirm the feature
+  preserves the Gherkin -> Step Definitions -> Business Interactions -> POM ->
+  Tool-Agnostic Abstractions flow.
+- Identify any new ports, adapters, decorators, strategies, builders, chains,
+  or registries required by the feature.
+- State whether AI healing, DiscoveryMode exploration, or smart reruns are in
+  scope and what failure signals activate them.
+- Confirm that no Playwright-specific types or direct locator primitives are
+  required in Layers 1 through 3.
+- Confirm the Cucumber phrasing is resilient to small UI wording or navigation
+  changes when the underlying business capability remains the same.
+
 ### Functional Requirements
 
 - **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
@@ -126,3 +144,5 @@
 - [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
 - [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
 - [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+- [Assumption about automation adapters, e.g., "Playwright remains the only
+  active adapter while interfaces stay tool-agnostic"]

@@ -31,7 +31,23 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Confirm the design preserves Hexagonal Architecture: core logic depends only
+  on ports/domain types and infrastructure is isolated behind adapters.
+- Identify all affected layers (Gherkin, Step Definitions, Business
+  Interactions, POM, Tool-Agnostic Abstractions) and verify each dependency
+  points downward only.
+- Confirm Gherkin scenarios describe business behavior and outcomes rather than
+  brittle UI copy, element labels, or exact navigation paths unless those are
+  explicitly part of the requirement.
+- List new or changed interfaces such as `IBrowser`, `IPage`, `IElement`,
+  provider strategies, or driver registries; explain why no Playwright-specific
+  types leak above Layer 5.
+- Describe whether the feature requires Decorator, Strategy, Builder, Chain of
+  Responsibility, or Singleton/Registry patterns and where each pattern lives.
+- Document ExceptionManager behavior for this feature, including when healing,
+  exploration, smart reruns, or hard failure apply.
+- Confirm TypeScript strict mode remains satisfied with no `any` and typed
+  generics for reusable action abstractions.
 
 ## Project Structure
 
@@ -58,12 +74,26 @@ specs/[###-feature]/
 ```text
 # [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── core/
+│   ├── domain/
+│   ├── ports/
+│   └── tasks/
+├── application/
+│   ├── step-definitions/
+│   └── services/
+├── adapters/
+│   ├── browser/
+│   ├── ai/
+│   └── observability/
+├── ui/
+│   └── page-objects/
+└── support/
+  ├── builders/
+  ├── exceptions/
+  └── registry/
 
 tests/
+├── gherkin/
 ├── contract/
 ├── integration/
 └── unit/
@@ -100,5 +130,5 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| [e.g., Playwright type exposed above Layer 5] | [current need] | [why a port/adapter boundary could not satisfy it] |
+| [e.g., Global registry introduced] | [specific problem] | [why dependency injection or explicit composition was insufficient] |
