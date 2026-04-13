@@ -57,6 +57,11 @@
 - Confirm async/await usage is minimized: every new async method is justified by
   a genuine I/O or timer boundary in the adapter; Layers 1–4 use synchronous
   APIs wherever the adapter permits.
+- Confirm all new and modified source files include required documentation: every
+  public class, interface, exported function, and non-trivial method carries a
+  documentation comment stating its purpose and contract; every new layer or
+  adapter directory includes a README describing its role and the contract it
+  satisfies.
 
 ## Project Structure
 
