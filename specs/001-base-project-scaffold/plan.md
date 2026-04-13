@@ -5,11 +5,16 @@
 
 ## Summary
 
-Create a strict TypeScript Playwright-automation+Cucumber base scaffold that enforces the
-five-layer architecture from the constitution, includes tool-agnostic browser
-ports (`IBrowser`, `IPage`, `IElement`), a Playwright-only adapter layer, an
-`ExceptionManager` extension point, and one passing smoke scenario proving
-end-to-end wiring from Gherkin to browser automation.
+
+Create a strict TypeScript Playwright-automation+Cucumber base scaffold that enforces the five-layer architecture from the constitution, includes tool-agnostic browser ports (`IBrowser`, `IPage`, `IElement`), a Playwright-only adapter layer, an `ExceptionManager` extension point, and one passing smoke scenario proving end-to-end wiring from Gherkin to browser automation.
+
+**Fixture Management is now dynamic and SOLID-compliant:**
+- Fixtures are registered via a handler interface (`FixtureHandler`).
+- `FixtureRequest` and `FixtureContext` are dynamic maps, not hardcoded types.
+- The manager delegates allocation/cleanup to registered handlers.
+- Adding a new fixture only requires implementing and registering a handler—no changes to the manager or hooks.
+- Hooks and manager are decoupled from specific fixture names, making it easy to add or modify fixture logic.
+
 
 ## Technical Context
 
@@ -22,6 +27,7 @@ end-to-end wiring from Gherkin to browser automation.
 **Performance Goals**: Fresh clone to green smoke run under 5 minutes
 **Constraints**: Strict TypeScript (`strict: true`), no Playwright types above Layer 5, CI-safe headless defaults
 **Scale/Scope**: 1 smoke scenario, 5 architecture layers, 1 browser project (Chromium) in scaffold phase
+**Fixture Management**: Dynamic registry-based, SOLID-compliant, extensible by registration.
 
 ## Constitution Check
 
@@ -70,6 +76,7 @@ Gate Result: PASS
 
 ## Project Structure
 
+
 ### Documentation (this feature)
 
 ```text
@@ -115,7 +122,16 @@ tests/
 directories encoded in path names to make constitution boundaries obvious for
 new contributors and reviewers.
 
+
 ## Phase 0: Research Plan
+
+## Fixture Management Design
+
+- Define a `FixtureHandler` interface for all fixtures.
+- Use a registry pattern in `AutomationFixtureManager` to register and manage fixture handlers.
+- `FixtureRequest` and `FixtureContext` are now dynamic maps keyed by fixture name.
+- Hooks and test code interact with the fixture system only through the registry and dynamic request/context objects.
+- Example: To add a new fixture, implement a handler and register it. No changes to the manager or hooks are required.
 
 - Validate strict TypeScript baseline and Node engine guardrails.
 - Validate Playwright CI defaults (headless, retries in CI, reporter artifacts,

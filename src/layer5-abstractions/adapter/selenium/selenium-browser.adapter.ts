@@ -1,9 +1,19 @@
 import { createUnsupportedCapabilityError } from '../../../support/exception-manager';
 import { IAutomationEngine } from '../../ports/iautomation-engine';
 
+/**
+ * Stub adapter that satisfies the `IAutomationEngine` contract for the Selenium
+ * engine. All methods throw `createUnsupportedCapabilityError` until a
+ * real Selenium integration is provided. The stub exists so that capability-
+ * parity contracts can verify which methods are expected but not yet wired.
+ */
 export class SeleniumBrowserAdapter implements IAutomationEngine {
   public readonly engineType = 'selenium' as const;
 
+  /**
+   * Returns a new `SeleniumBrowserAdapter` instance without launching a real
+   * browser; all methods on the returned instance throw unsupported errors.
+   */
   public static async launch(): Promise<SeleniumBrowserAdapter> {
     return new SeleniumBrowserAdapter();
   }

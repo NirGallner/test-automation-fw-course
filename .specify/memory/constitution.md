@@ -1,17 +1,18 @@
 <!--
 Sync Impact Report
-Version change: 1.3.0 -> 1.4.0
+Version change: 1.4.0 -> 1.5.0
 Modified principles:
-- V. Strict TypeScript, OOP, and Failure Governance (explicitly forbids async/await syntax in Layers 1-4)
-- IV. Tool-Agnostic Contracts (adds cross-platform support expectation)
-Added sections:
 - None
+Added sections:
+- VI. Source File Documentation Standards (new principle)
+- Implementation Standards: documentation bullet added
+- Delivery Workflow: documentation gate added
 Removed sections:
 - None
 Templates requiring updates:
-- ✅ .specify/templates/plan-template.md
-- ✅ .specify/templates/spec-template.md
-- ✅ .specify/templates/tasks-template.md
+- ✅ .specify/templates/plan-template.md (Constitution Check: documentation check added)
+- ✅ .specify/templates/spec-template.md (no changes required)
+- ✅ .specify/templates/tasks-template.md (no changes required)
 Follow-up TODOs:
 - None
 -->
@@ -111,6 +112,18 @@ and end-to-end behavior validation may use Playwright automation through Layer 5
 and Cucumber scenarios, but Playwright MUST NOT become the primary unit test
 runner.
 
+### VI. Source File Documentation Standards
+Documentation is mandatory in all source files. Every public class, interface,
+exported function, and non-trivial method MUST carry a documentation comment
+that describes its purpose, contract, and any notable constraints or
+preconditions. Private implementation details MUST be documented when their
+behavior is non-obvious or when the logic is not self-explanatory from the
+identifier alone. Layer and adapter directories MUST contain a README that
+states the layer's role, its direct dependencies, and the contract or port it
+satisfies. Documentation MUST be authored alongside the code it describes;
+deferring documentation to a later pass is prohibited. Source files that lack
+required documentation comments MUST NOT be merged.
+
 ## Implementation Standards
 
 - Architectural changes MUST document the impacted layers, affected ports,
@@ -143,6 +156,10 @@ runner.
 - Async surface area MUST be minimized: Layers 1-4 MUST NOT introduce `async`
 	methods or `await` expressions. Adapter and framework-boundary code may use
 	them only when required by true asynchronous operations.
+- All source files MUST include documentation: every public class, interface,
+	exported function, and non-trivial method MUST carry a documentation comment
+	stating its purpose and contract. Layer and adapter directories MUST contain
+	a README describing the layer's role and the contract it satisfies.
 
 ## Delivery Workflow & Quality Gates
 
@@ -160,6 +177,9 @@ runner.
 	test responsibilities belong to Vitest.
 - Merges MUST preserve strict TypeScript guarantees and include validation that
 	the chosen design patterns were applied where the feature requires them.
+- Merges MUST be rejected when public classes, exported functions, or
+	non-trivial methods lack required documentation comments, or when a layer or
+	adapter directory is missing its README.
 
 ## Governance
 
@@ -178,4 +198,4 @@ Every pull request and feature plan MUST state how it complies with these
 principles or explicitly justify an approved exception. Unjustified deviations
 MUST be corrected before merge.
 
-**Version**: 1.4.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13
+**Version**: 1.5.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-14

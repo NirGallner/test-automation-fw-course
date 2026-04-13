@@ -5,7 +5,14 @@
 
 **Tests**: Test tasks are included because the feature explicitly requires a passing smoke scenario, strict type checks, and adapter-boundary validation.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+
+**Fixture Management Refactor**
+- [X] Refactor fixture management to use a dynamic registry pattern and SOLID-compliant handler interface.
+- [X] Update `AutomationFixtureManager` to support registration and delegation to fixture handlers.
+- [X] Refactor `FixtureRequest` and `FixtureContext` to be dynamic maps.
+- [X] Update Cucumber hooks to use the new dynamic fixture request/context.
+- [X] Add example: register a new fixture handler (e.g., `cacheServer`).
+- [X] Update documentation and plan to describe the new fixture mechanism.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
@@ -18,6 +25,7 @@
 - [X] T005 [P] Create layer 1 gherkin test directory structure in tests/layer1-gherkin/.gitkeep
 
 ---
+
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 

@@ -27,3 +27,9 @@ Invalid DRIVER_ENGINE value: <value>. Expected one of: playwright, vibium, selen
 npm run test:drivers
 
 No layer 1-4 code changes are required to swap engines.
+
+## Lifecycle fixture behavior
+
+- Hook lifecycle labels (`BeforeAll`, `Before`, `After`, `AfterAll`) are emitted regardless of selected engine.
+- Fixture labels (`globalServer Start/End`, `testDatabase Start/End`) are emitted only for scenarios tagged with `@fixtures` (or configured fixture tags).
+- The same fixture opt-in behavior must remain stable for Playwright and Vibium runs.
