@@ -1,20 +1,10 @@
-// Example: Register a new scenario-scoped fixture handler (cacheServer)
-AutomationFixtureManager.register({
-  name: 'cacheServer',
-  scope: 'scenario',
-  async allocate(scenarioName: string, options?: any) {
-    // Simulate allocation logic (could connect to a cache, etc.)
-    LifecycleLogger.logFixture('cacheServer Start', scenarioName, true);
-    return { name: 'cacheServer', allocated: true, options };
-  },
-  async cleanup(scenarioName: string, context: any) {
-    if (context && context.allocated) {
-      LifecycleLogger.logFixture('cacheServer End', scenarioName, true);
-    }
-  }
-});
+
+// Register fixtures after all definitions
+
 
 import { LifecycleLogger } from './lifecycle-logger';
+
+
 
 // Dynamic fixture request: map of fixture name to options (or true/false)
 export type FixtureRequest = Record<string, any>;
@@ -95,7 +85,23 @@ export class AutomationFixtureManager {
   }
 }
 
-// Example: Register built-in fixtures (globalServer, testDatabase)
+
+// Register fixtures after class definition
+AutomationFixtureManager.register({
+  name: 'cacheServer',
+  scope: 'scenario',
+  async allocate(scenarioName: string, options?: any) {
+    // Simulate allocation logic (could connect to a cache, etc.)
+    LifecycleLogger.logFixture('cacheServer Start', scenarioName, true);
+    return { name: 'cacheServer', allocated: true, options };
+  },
+  async cleanup(scenarioName: string, context: any) {
+    if (context && context.allocated) {
+      LifecycleLogger.logFixture('cacheServer End', scenarioName, true);
+    }
+  }
+});
+
 AutomationFixtureManager.register({
   name: 'globalServer',
   scope: 'worker',
