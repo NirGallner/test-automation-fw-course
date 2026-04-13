@@ -5,6 +5,15 @@
 **Status**: Draft  
 **Input**: User description: "Redesign the interface of the agnostic tool approach. Cross-tool research on Playwright, Vidium, and Selenium operations. Define a strictly typed IAutomationEngine with intent-based method names. Include unique single-tool capabilities for parity and require unsupported engines to fail with descriptive not-implemented errors. Provide concrete implementation outlines and engine factory selection via environment variable."
 
+## Clarifications
+
+### Session 2026-04-13
+
+- Q: Should Selenium be included in executable parity for this iteration? -> A: Keep Selenium in contract/design scope only; execute parity on Playwright and Vibium.
+- Q: What is the canonical engine name for the vendored adapter? -> A: Vibium is canonical everywhere.
+- Q: Should adapters be decomposed per engine into browser/page/element files? -> A: Yes, required with incremental migration allowed.
+- Q: What runtime target should parity smoke workflows meet? -> A: <=5 minutes total.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Scenarios MUST describe durable business behavior. Avoid encoding transient
@@ -28,8 +37,8 @@ capabilities.
 **Acceptance Scenarios**:
 
 1. **Given** a shared scenario that uses only common capabilities, **When** the
-   scenario runs on Playwright, Vidium, and Selenium engines, **Then** each run
-   completes with equivalent business results.
+  scenario runs on Playwright and Vibium engines, **Then** each run completes
+  with equivalent business results.
 2. **Given** the scenario requires navigation, click, text entry, hover,
    waiting, frame switching, and window switching, **When** each engine is
    selected, **Then** each operation succeeds through the same intent-level
@@ -65,7 +74,7 @@ not-implemented errors for those capabilities.
 ### User Story 3 - Switch Engines by Configuration (Priority: P3)
 
 A release engineer can switch the active automation engine by environment
-configuration so test execution can be routed to Playwright, Vidium, or
+configuration so test execution can be routed to Playwright, Vibium, or
 Selenium without editing scenario logic.
 
 **Why this priority**: Configuration-driven engine selection supports CI matrix
@@ -79,7 +88,7 @@ selected each time.
 
 1. **Given** environment configuration selects Playwright, **When** test
    execution starts, **Then** the Playwright engine implementation is used.
-2. **Given** environment configuration selects Vidium or Selenium, **When** test
+2. **Given** environment configuration selects Vibium or Selenium, **When** test
    execution starts, **Then** the matching engine implementation is used without
    changes to user scenarios.
 3. **Given** an unknown engine identifier, **When** execution starts, **Then**
@@ -133,7 +142,7 @@ selected each time.
   engine MUST fail with a descriptive not-implemented error in the format:
   "[MethodName] is not supported by the [ToolName] engine."
 - **FR-006**: The system MUST provide three concrete engine implementations:
-  Playwright engine, Vidium engine, and Selenium engine.
+  Playwright engine, Vibium engine, and Selenium engine.
 - **FR-007**: All engine operations MUST support asynchronous execution semantics
   so interaction flows can be awaited deterministically.
 - **FR-008**: The system MUST provide a factory mechanism that selects the
@@ -142,6 +151,9 @@ selected each time.
   clear validation error before test execution proceeds.
 - **FR-010**: Existing scenarios and business interactions using shared
   capabilities MUST run without behavioral regression when switching engines.
+- **FR-011**: Each engine adapter MUST use decomposed browser/page/element
+  implementation files (or equivalent separated classes), and migration to this
+  structure MAY be completed incrementally per engine.
 
 ### Key Entities
 
@@ -149,7 +161,7 @@ selected each time.
   capabilities required by the framework.
 - **Engine Capability**: A contract method representing either a shared action
   across engines or a unique single-engine action.
-- **Engine Implementation**: A concrete Playwright, Vidium, or Selenium adapter
+- **Engine Implementation**: A concrete Playwright, Vibium, or Selenium adapter
   that fulfills the contract.
 - **Unsupported Capability Error**: A standardized error outcome returned when a
   capability is unavailable in the selected engine.
@@ -170,13 +182,14 @@ selected each time.
   standardized descriptive message format and identify both method and engine.
 - **SC-004**: Contract conformance checks identify all missing or mismatched
   engine methods before runtime execution.
-- **SC-005**: Primary cross-engine smoke workflows complete successfully on all
-  supported engines with no critical behavioral regressions.
+- **SC-005**: Primary cross-engine smoke workflows complete successfully on
+  Playwright and Vibium with no critical behavioral regressions in <=5 minutes
+  total runtime.
 
 ## Assumptions
 
-- Playwright, Vidium, and Selenium remain the supported engines for this
-  iteration.
+- Playwright and Vibium are executable engines for this iteration; Selenium
+  remains in design/contract scope and implementation outline scope only.
 - The existing layered architecture and current scenario corpus remain in place
   and are not fundamentally restructured by this feature.
 - Unique single-engine capabilities are expected to be a minority of the

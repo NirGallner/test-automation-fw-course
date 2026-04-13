@@ -1,8 +1,9 @@
 <!--
 Sync Impact Report
-Version change: 1.2.0 -> 1.3.0
+Version change: 1.3.0 -> 1.4.0
 Modified principles:
 - V. Strict TypeScript, OOP, and Failure Governance (explicitly forbids async/await syntax in Layers 1-4)
+- IV. Tool-Agnostic Contracts (adds cross-platform support expectation)
 Added sections:
 - None
 Removed sections:
@@ -75,6 +76,11 @@ Playwright MUST be used as an automation adapter only and MUST NOT be used as
 the test framework. Unit tests MUST use Vitest, while behavior tests continue
 to be expressed through Gherkin/Cucumber layers.
 
+Platform support MUST include macOS, Linux, and Windows for local and CI
+execution paths. Any adapter or runtime-selection change that introduces
+platform-specific coupling without an equivalent cross-platform strategy is a
+constitution violation.
+
 ### V. Strict TypeScript, OOP, and Failure Governance
 TypeScript strict mode is mandatory across the repository. New code MUST avoid
 `any`, prefer generics for reusable action layers, and model failure states with
@@ -128,6 +134,9 @@ runner.
 	implementations, not inline conditionals scattered across workflows.
 - Shared runtime state MUST be minimal, deterministic, and justified when a
 	Singleton or Registry is introduced.
+- Adapter implementations MAY be split across multiple files per engine (for
+	example browser/page/element) and this decomposition is preferred when it
+	improves separation of concerns, testability, and strict contract mapping.
 - All source MUST apply OOP discipline: classes MUST encapsulate all behavior
 	pertaining to their domain concept; standalone multi-purpose utility functions
 	outside designated utility or factory classes are prohibited.
@@ -169,4 +178,4 @@ Every pull request and feature plan MUST state how it complies with these
 principles or explicitly justify an approved exception. Unjustified deviations
 MUST be corrected before merge.
 
-**Version**: 1.3.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13
+**Version**: 1.4.0 | **Ratified**: 2026-04-13 | **Last Amended**: 2026-04-13
