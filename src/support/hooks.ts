@@ -21,17 +21,12 @@ import { resolveRuntimeConfig } from './runtime-config';
  * typed `this` without coupling through a separate module.
  */
 class SmokeWorld extends World {
-  /** Active automation engine for the current scenario; set in the Before hook. */
   public engine: IAutomationEngine | null = null;
-  /** High-level smoke task wired to the active engine; set in the Before hook. */
   public smokeTask: HomeSmokeTask | null = null;
-  /** Last page title captured by the 'I capture the page title' step. */
   public lastTitle = '';
-  /** The Cucumber scenario name, populated from the Before hook parameter. */
   public scenarioName = '';
-  /** Fixture request derived from scenario tags; controls allocation scope. */
-  public fixtureRequest: FixtureRequest = { usesGlobalServer: false, usesScenarioDatabase: false };
-  /** Fixture context returned by the Before hook's allocation step. */
+  // Dynamic fixture request/context
+  public fixtureRequest: FixtureRequest = {};
   public fixtureContext: FixtureContext = {};
 }
 
@@ -46,15 +41,22 @@ setWorldConstructor(SmokeWorld);
  *
  * @param hook - The Cucumber before-hook parameter containing pickle metadata.
  */
+// Dynamically resolve requested fixtures from tags/config
 const resolveFixtureRequest = (hook: ITestCaseHookParameter): FixtureRequest => {
   const config = resolveRuntimeConfig();
   const tags = new Set(hook.pickle.tags.map((tag) => tag.name));
-  const sharedFixtureOptIn = tags.has(config.fixtures.fixtureTag);
-
-  return {
-    usesGlobalServer: sharedFixtureOptIn || tags.has(config.fixtures.workerFixtureTag),
-    usesScenarioDatabase: sharedFixtureOptIn || tags.has(config.fixtures.scenarioFixtureTag)
-  };
+  const request: FixtureRequest = {};
+  if (tags.has(config.fixtures.fixtureTag) || tags.has(config.fixtures.workerFixtureTag)) {
+    request.globalServer = true;
+  }
+  if (tags.has(config.fixtures.fixtureTag) || tags.has(config.fixtures.scenarioFixtureTag)) {
+    request.testDatabase = true;
+  }
+  // Add more dynamic fixture tag mappings here as needed
+  if (tags.has('@cacheServer')) {
+    request.cacheServer = { size: 10 }; // Example: pass options
+  }
+  return request;
 };
 
 /** Resets the lifecycle logger at the start of the test run. */
