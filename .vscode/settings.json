@@ -10,7 +10,25 @@
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true,
         "git rev-parse": true,
-        ".specify/extensions/git/scripts/bash/initialize-repo.sh": true
+        ".specify/extensions/git/scripts/bash/initialize-repo.sh": true,
+        "/^bash \\.specify/extensions/git/scripts/bash/create-new-feature\\.sh --json --short-name \"base-project-scaffold\" \"base-project-scaffold\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "mkdir": true,
+        "/^awk 'BEGIN\\{ok=1\\} /\\^- \\\\\\[ \\\\\\] / \\{if \\(\\$2 !~ /\\^\\\\\\[/\\) next\\} /\\^- \\\\\\[ \\\\\\] T\\[0-9\\]\\[0-9\\]\\[0-9\\]/ \\{next\\} /\\^- \\\\\\[ \\\\\\] / \\{print \"BAD:\" \\$0; ok=0\\} END\\{if\\(ok\\) print \"ALL_TASK_LINES_OK\"\\}' specs/001-base-project-scaffold/tasks\\.md$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^\\.specify/extensions/git/scripts/bash/auto-commit\\.sh after_plan$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^git status --short && git add specs/001-base-project-scaffold/spec\\.md && git commit -m \"\\[Spec Kit\\] Commit plan clarifications for 001\" && git status --short$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "continue": true
     }
 }
 
