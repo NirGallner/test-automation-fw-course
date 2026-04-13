@@ -10,10 +10,16 @@ isolated in Layer 5 adapter implementations.
 
 ```ts
 export interface IAutomationEngine {
+  newPage(): Promise<void>;
+  close(): Promise<void>;
+
   openUrl(url: string): Promise<void>;
+  getTitle(): Promise<string>;
   click(selector: string): Promise<void>;
   enterText(selector: string, value: string): Promise<void>;
   hover(selector: string): Promise<void>;
+  getTextContent(selector: string): Promise<string>;
+  isVisible(selector: string): Promise<boolean>;
   waitForVisible(selector: string, timeoutMs?: number): Promise<void>;
   switchToFrame(frameSelector: string): Promise<void>;
   switchToWindow(windowRef: string): Promise<void>;
@@ -28,7 +34,7 @@ export interface IAutomationEngine {
 Rules:
 - Method names MUST be intent-based and vendor-neutral.
 - Signatures MUST NOT expose Playwright, Vibium, or Selenium runtime types.
-- Shared capabilities MUST be implemented by all supported engines.
+- Shared capabilities MUST be implemented by all supported engines with deterministic Promise behavior.
 - Unique capabilities MAY be optional in type declarations but MUST still have
   deterministic runtime behavior in every engine.
 
@@ -71,7 +77,8 @@ No adapter may silently no-op an unsupported method.
 `DriverRegistry` (or equivalent factory service) MUST:
 - Resolve engine from `DRIVER_ENGINE` runtime config.
 - Accept known values: `playwright`, `vibium`, `selenium`.
-- Fail fast for unknown values before scenario execution.
+- Fail fast for unknown values before scenario execution with this format:
+  `Invalid DRIVER_ENGINE value: <value>. Expected one of: playwright, vibium, selenium.`
 - Return an `IAutomationEngine` instance without leaking adapter internals.
 
 ## Execution Scope for This Iteration

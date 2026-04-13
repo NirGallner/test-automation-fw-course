@@ -22,6 +22,7 @@ npm run test:unit
 Expected result:
 - Strict TypeScript checks pass.
 - Contract and parity unit tests pass.
+- Invalid `DRIVER_ENGINE` values fail fast with explicit validation text.
 
 ## 3. Run smoke with Playwright
 
@@ -51,7 +52,16 @@ Expected result:
 - Sequential parity execution on Playwright and Vibium.
 - No edits required in Gherkin or step intent mapping.
 
-## 6. Verify architecture constraints
+## 6. Validate deterministic invalid engine behavior
+
+```bash
+DRIVER_ENGINE=invalid npm run test:unit
+```
+
+Expected result:
+- Unit tests assert fail-fast configuration validation and prevent accidental default fallback.
+
+## 7. Verify architecture constraints
 
 ```bash
 npm run check:boundary
@@ -64,7 +74,7 @@ Expected result:
 - Async surface guard remains compliant.
 - Layered structure checks pass.
 
-## 7. Selenium note
+## 8. Selenium note
 
 Selenium remains in design and contract scope for this feature but is not
 executed in this quickstart flow. Unsupported or deferred Selenium-specific

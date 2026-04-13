@@ -6,6 +6,10 @@ export interface FailureContext {
   error?: unknown;
 }
 
+export const createUnsupportedCapabilityError = (methodName: string, toolName: string): Error => {
+  return new Error(`${methodName} is not supported by the ${toolName} engine.`);
+};
+
 export class ExceptionManager {
   public handleFailure(context: FailureContext): never {
     const detail = [

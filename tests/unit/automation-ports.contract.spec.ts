@@ -1,29 +1,41 @@
 import { describe, expect, it } from 'vitest';
-import { IBrowser } from '../../src/layer5-abstractions/ports/ibrowser';
-import { IElement } from '../../src/layer5-abstractions/ports/ielement';
-import { IPage } from '../../src/layer5-abstractions/ports/ipage';
-import { PlaywrightBrowserAdapter } from '../../src/layer5-abstractions/adapter/playwright-browser.adapter';
-import { PlaywrightElementAdapter } from '../../src/layer5-abstractions/adapter/playwright-element.adapter';
-import { PlaywrightPageAdapter } from '../../src/layer5-abstractions/adapter/playwright-page.adapter';
+import { PlaywrightBrowserAdapter } from '../../src/layer5-abstractions/adapter/playwright/playwright-browser.adapter';
+import { SeleniumBrowserAdapter } from '../../src/layer5-abstractions/adapter/selenium/selenium-browser.adapter';
+import { VibiumBrowserAdapter } from '../../src/layer5-abstractions/adapter/vibium/vibium-browser.adapter';
+import { IAutomationEngine } from '../../src/layer5-abstractions/ports/iautomation-engine';
 
 describe('automation port contract', () => {
-  it('adapter classes satisfy contract shape at type level', () => {
-    const browserCtor: unknown = PlaywrightBrowserAdapter;
-    const pageCtor: unknown = PlaywrightPageAdapter;
-    const elementCtor: unknown = PlaywrightElementAdapter;
+  it('playwright and vibium adapters expose shared intent methods', () => {
+    const sharedMethods: Array<keyof IAutomationEngine> = [
+      'newPage',
+      'close',
+      'openUrl',
+      'getTitle',
+      'click',
+      'enterText',
+      'hover',
+      'getTextContent',
+      'isVisible',
+      'waitForVisible',
+      'switchToFrame',
+      'switchToWindow'
+    ];
 
-    expect(browserCtor).toBeTypeOf('function');
-    expect(pageCtor).toBeTypeOf('function');
-    expect(elementCtor).toBeTypeOf('function');
+    for (const method of sharedMethods) {
+      expect(typeof PlaywrightBrowserAdapter.prototype[method]).toBe('function');
+      expect(typeof VibiumBrowserAdapter.prototype[method]).toBe('function');
+    }
   });
 
-  it('ports expose expected callable members', () => {
-    const browserKeys: Array<keyof IBrowser> = ['newPage', 'close'];
-    const pageKeys: Array<keyof IPage> = ['goto', 'title', 'find'];
-    const elementKeys: Array<keyof IElement> = ['textContent', 'isVisible', 'click'];
+  it('returns standardized unsupported messages for non-supported unique capabilities', async () => {
+    const vibium = Object.create(VibiumBrowserAdapter.prototype) as VibiumBrowserAdapter;
+    const selenium = await SeleniumBrowserAdapter.launch();
 
-    expect(browserKeys.length).toBe(2);
-    expect(pageKeys.length).toBe(3);
-    expect(elementKeys.length).toBe(3);
+    await expect(vibium.startTrace('trace')).rejects.toThrow(
+      'startTrace is not supported by the Vibium engine.'
+    );
+    await expect(selenium.useDevtoolsProtocol('Network.enable')).rejects.toThrow(
+      'useDevtoolsProtocol is not supported by the Selenium engine.'
+    );
   });
 });

@@ -15,10 +15,10 @@
 
 **Purpose**: Create shared scaffolding for the new engine contract and adapter decomposition.
 
-- [ ] T001 Create the new engine port file `src/layer5-abstractions/ports/iautomation-engine.ts`.
-- [ ] T002 Create shared engine capability type definitions in `src/layer5-abstractions/ports/automation-engine-capabilities.ts`.
-- [ ] T003 [P] Create decomposed Vibium adapter stubs in `src/layer5-abstractions/adapter/vibium-page.adapter.ts` and `src/layer5-abstractions/adapter/vibium-element.adapter.ts`.
-- [ ] T004 [P] Create decomposed Selenium adapter stubs in `src/layer5-abstractions/adapter/selenium-browser.adapter.ts`, `src/layer5-abstractions/adapter/selenium-page.adapter.ts`, and `src/layer5-abstractions/adapter/selenium-element.adapter.ts`.
+- [X] T001 Create the new engine port file `src/layer5-abstractions/ports/iautomation-engine.ts`.
+- [X] T002 Create shared engine capability type definitions in `src/layer5-abstractions/ports/automation-engine-capabilities.ts`.
+- [X] T003 [P] Create decomposed Vibium adapter stubs in `src/layer5-abstractions/adapter/vibium-page.adapter.ts` and `src/layer5-abstractions/adapter/vibium-element.adapter.ts`.
+- [X] T004 [P] Create decomposed Selenium adapter stubs in `src/layer5-abstractions/adapter/selenium-browser.adapter.ts`, `src/layer5-abstractions/adapter/selenium-page.adapter.ts`, and `src/layer5-abstractions/adapter/selenium-element.adapter.ts`.
 
 ---
 
@@ -28,11 +28,11 @@
 
 **CRITICAL**: No user story work starts until this phase is complete.
 
-- [ ] T005 Add standardized unsupported-capability error creation in `src/support/exception-manager.ts`.
-- [ ] T006 Refactor engine resolution and fail-fast validation in `src/support/runtime-config.ts`.
-- [ ] T007 Update engine registry/factory mapping for `playwright|vibium|selenium` in `src/support/driver-registry.ts`.
-- [ ] T008 [P] Add foundational unit coverage for runtime resolution and invalid engine errors in `tests/unit/playwright-config.spec.ts` and `tests/unit/driver-parity.spec.ts`.
-- [ ] T009 [P] Update boundary/structure guard expectations for new adapter files in `scripts/check-playwright-boundary.mjs` and `scripts/verify-structure.mjs`.
+- [X] T005 Add standardized unsupported-capability error creation in `src/support/exception-manager.ts`.
+- [X] T006 Refactor engine resolution and fail-fast validation in `src/support/runtime-config.ts`.
+- [X] T007 Update engine registry/factory mapping for `playwright|vibium|selenium` in `src/support/driver-registry.ts`.
+- [X] T008 [P] Add foundational unit coverage for runtime resolution and invalid engine errors in `tests/unit/playwright-config.spec.ts` and `tests/unit/driver-parity.spec.ts`.
+- [X] T009 [P] Update boundary/structure guard expectations for new adapter files in `scripts/check-playwright-boundary.mjs` and `scripts/verify-structure.mjs`.
 
 **Checkpoint**: Shared contract scaffolding, runtime selection, and error semantics are ready.
 
@@ -46,18 +46,18 @@
 
 ### Tests for User Story 1
 
-- [ ] T010 [P] [US1] Add shared-capability contract tests for Playwright and Vibium adapters in `tests/unit/automation-ports.contract.spec.ts`.
-- [ ] T011 [P] [US1] Add parity smoke unit coverage for task-level behavior in `tests/unit/home-smoke.task.spec.ts`.
-- [ ] T012 [P] [US1] Extend driver parity assertions for Playwright and Vibium in `tests/unit/driver-parity.spec.ts`.
+- [X] T010 [P] [US1] Add shared-capability contract tests for Playwright and Vibium adapters in `tests/unit/automation-ports.contract.spec.ts`.
+- [X] T011 [P] [US1] Add parity smoke unit coverage for task-level behavior in `tests/unit/home-smoke.task.spec.ts`.
+- [X] T012 [P] [US1] Extend driver parity assertions for Playwright and Vibium in `tests/unit/driver-parity.spec.ts`.
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Implement `IAutomationEngine` shared navigation/interaction methods in `src/layer5-abstractions/adapter/playwright-browser.adapter.ts` and `src/layer5-abstractions/adapter/playwright-page.adapter.ts`.
-- [ ] T014 [P] [US1] Implement `IAutomationEngine` shared navigation/interaction methods in `src/layer5-abstractions/adapter/vibium-browser.adapter.ts` and `src/layer5-abstractions/adapter/vibium-page.adapter.ts`.
-- [ ] T015 [US1] Implement shared element query/state methods in `src/layer5-abstractions/adapter/playwright-element.adapter.ts` and `src/layer5-abstractions/adapter/vibium-element.adapter.ts`.
-- [ ] T016 [US1] Refactor Page Object usage to consume intent-level engine methods in `src/layer4-page-objects/home.page.ts`.
-- [ ] T017 [US1] Refactor business task orchestration to use the unified engine contract in `src/tasks/home-smoke.task.ts`.
-- [ ] T018 [US1] Update step wiring to keep business intent and route through the new task flow in `src/layer2-step-definitions/smoke.steps.ts`.
+- [X] T013 [P] [US1] Implement `IAutomationEngine` shared navigation/interaction methods in `src/layer5-abstractions/adapter/playwright-browser.adapter.ts` and `src/layer5-abstractions/adapter/playwright-page.adapter.ts`.
+- [X] T014 [P] [US1] Implement `IAutomationEngine` shared navigation/interaction methods in `src/layer5-abstractions/adapter/vibium-browser.adapter.ts` and `src/layer5-abstractions/adapter/vibium-page.adapter.ts`.
+- [X] T015 [US1] Implement shared element query/state methods in `src/layer5-abstractions/adapter/playwright-element.adapter.ts` and `src/layer5-abstractions/adapter/vibium-element.adapter.ts`.
+- [X] T016 [US1] Refactor Page Object usage to consume intent-level engine methods in `src/layer4-page-objects/home.page.ts`.
+- [X] T017 [US1] Refactor business task orchestration to use the unified engine contract in `src/tasks/home-smoke.task.ts`.
+- [X] T018 [US1] Update step wiring to keep business intent and route through the new task flow in `src/layer2-step-definitions/smoke.steps.ts`.
 
 **Checkpoint**: User Story 1 is runnable and independently testable on Playwright and Vibium.
 
@@ -71,15 +71,15 @@
 
 ### Tests for User Story 2
 
-- [ ] T019 [P] [US2] Add unsupported-capability message contract tests in `tests/unit/automation-ports.contract.spec.ts`.
-- [ ] T020 [P] [US2] Add async-surface compliance tests for new contract usage in `tests/unit/async-surface.guard.spec.ts`.
+- [X] T019 [P] [US2] Add unsupported-capability message contract tests in `tests/unit/automation-ports.contract.spec.ts`.
+- [X] T020 [P] [US2] Add async-surface compliance tests for new contract usage in `tests/unit/async-surface.guard.spec.ts`.
 
 ### Implementation for User Story 2
 
-- [ ] T021 [P] [US2] Implement unique capability support and explicit unsupported throws for Playwright in `src/layer5-abstractions/adapter/playwright-browser.adapter.ts`.
-- [ ] T022 [P] [US2] Implement unique capability support and explicit unsupported throws for Vibium in `src/layer5-abstractions/adapter/vibium-browser.adapter.ts`.
-- [ ] T023 [US2] Add Selenium implementation outline methods with standardized unsupported behavior in `src/layer5-abstractions/adapter/selenium-browser.adapter.ts`, `src/layer5-abstractions/adapter/selenium-page.adapter.ts`, and `src/layer5-abstractions/adapter/selenium-element.adapter.ts`.
-- [ ] T024 [US2] Align contract examples and capability list with implemented behavior in `specs/002-agnostic-engine-interface/contracts/automation-engine.md`.
+- [X] T021 [P] [US2] Implement unique capability support and explicit unsupported throws for Playwright in `src/layer5-abstractions/adapter/playwright-browser.adapter.ts`.
+- [X] T022 [P] [US2] Implement unique capability support and explicit unsupported throws for Vibium in `src/layer5-abstractions/adapter/vibium-browser.adapter.ts`.
+- [X] T023 [US2] Add Selenium implementation outline methods with standardized unsupported behavior in `src/layer5-abstractions/adapter/selenium-browser.adapter.ts`, `src/layer5-abstractions/adapter/selenium-page.adapter.ts`, and `src/layer5-abstractions/adapter/selenium-element.adapter.ts`.
+- [X] T024 [US2] Align contract examples and capability list with implemented behavior in `specs/002-agnostic-engine-interface/contracts/automation-engine.md`.
 
 **Checkpoint**: User Story 2 capability parity rules are enforced and independently testable.
 
@@ -93,15 +93,15 @@
 
 ### Tests for User Story 3
 
-- [ ] T025 [P] [US3] Add engine-selection coverage for valid and invalid values in `tests/unit/playwright-config.spec.ts`.
-- [ ] T026 [P] [US3] Add registry selection and fail-fast tests in `tests/unit/driver-parity.spec.ts`.
+- [X] T025 [P] [US3] Add engine-selection coverage for valid and invalid values in `tests/unit/playwright-config.spec.ts`.
+- [X] T026 [P] [US3] Add registry selection and fail-fast tests in `tests/unit/driver-parity.spec.ts`.
 
 ### Implementation for User Story 3
 
-- [ ] T027 [US3] Finalize environment-to-engine selection rules and error text in `src/support/runtime-config.ts`.
-- [ ] T028 [US3] Finalize registry instantiation path per engine in `src/support/driver-registry.ts`.
-- [ ] T029 [US3] Keep hook lifecycle compatible with runtime-selected engines in `src/support/hooks.ts`.
-- [ ] T030 [US3] Update driver selection guidance for Playwright/Vibium execution and Selenium design scope in `docs/driver-selection.md`.
+- [X] T027 [US3] Finalize environment-to-engine selection rules and error text in `src/support/runtime-config.ts`.
+- [X] T028 [US3] Finalize registry instantiation path per engine in `src/support/driver-registry.ts`.
+- [X] T029 [US3] Keep hook lifecycle compatible with runtime-selected engines in `src/support/hooks.ts`.
+- [X] T030 [US3] Update driver selection guidance for Playwright/Vibium execution and Selenium design scope in `docs/driver-selection.md`.
 
 **Checkpoint**: User Story 3 is independently testable and configuration-driven.
 
@@ -111,9 +111,9 @@
 
 **Purpose**: Final validation, documentation, and quality gates across all stories.
 
-- [ ] T031 [P] Update implementation notes and verification flow in `specs/002-agnostic-engine-interface/quickstart.md`.
-- [ ] T032 [P] Update CI/parity documentation for Playwright and Vibium execution scope in `docs/ci.md`.
-- [ ] T033 Run full validation suite and capture final results in `reports/cucumber-report.html`.
+- [X] T031 [P] Update implementation notes and verification flow in `specs/002-agnostic-engine-interface/quickstart.md`.
+- [X] T032 [P] Update CI/parity documentation for Playwright and Vibium execution scope in `docs/ci.md`.
+- [X] T033 Run full validation suite and capture final results in `reports/cucumber-report.html`.
 
 ---
 
