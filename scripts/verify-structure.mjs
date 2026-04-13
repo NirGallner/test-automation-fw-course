@@ -10,7 +10,21 @@ const requiredPaths = [
   'src/tasks',
   'src/layer4-page-objects',
   'src/layer5-abstractions/ports',
+  'src/layer5-abstractions/ports/iautomation-engine.ts',
+  'src/layer5-abstractions/ports/automation-engine-capabilities.ts',
   'src/layer5-abstractions/adapter',
+  'src/layer5-abstractions/adapter/playwright',
+  'src/layer5-abstractions/adapter/playwright/playwright-browser.adapter.ts',
+  'src/layer5-abstractions/adapter/playwright/playwright-page.adapter.ts',
+  'src/layer5-abstractions/adapter/playwright/playwright-element.adapter.ts',
+  'src/layer5-abstractions/adapter/vibium',
+  'src/layer5-abstractions/adapter/vibium/vibium-browser.adapter.ts',
+  'src/layer5-abstractions/adapter/vibium/vibium-page.adapter.ts',
+  'src/layer5-abstractions/adapter/vibium/vibium-element.adapter.ts',
+  'src/layer5-abstractions/adapter/selenium',
+  'src/layer5-abstractions/adapter/selenium/selenium-browser.adapter.ts',
+  'src/layer5-abstractions/adapter/selenium/selenium-page.adapter.ts',
+  'src/layer5-abstractions/adapter/selenium/selenium-element.adapter.ts',
   'tests/layer1-gherkin'
 ];
 

@@ -2,10 +2,10 @@ import { After, Before, ITestCaseHookParameter, setWorldConstructor, World } fro
 import { DriverRegistry } from './driver-registry';
 import { ExceptionManager } from './exception-manager';
 import { HomeSmokeTask } from '../tasks/home-smoke.task';
-import { IPage } from '../layer5-abstractions/ports/ipage';
+import { IAutomationEngine } from '../layer5-abstractions/ports/iautomation-engine';
 
 class SmokeWorld extends World {
-  public page: IPage | null = null;
+  public engine: IAutomationEngine | null = null;
   public smokeTask: HomeSmokeTask | null = null;
   public lastTitle = '';
 }
@@ -13,18 +13,17 @@ class SmokeWorld extends World {
 setWorldConstructor(SmokeWorld);
 
 Before(function (this: SmokeWorld): Promise<void> {
-  return DriverRegistry.getBrowser()
-    .then((browser) => browser.newPage())
-    .then((page) => {
-      this.page = page;
-      this.smokeTask = new HomeSmokeTask(page);
+  return DriverRegistry.getAutomationEngine()
+    .then((engine) => {
+      this.engine = engine;
+      this.smokeTask = new HomeSmokeTask(engine);
       this.lastTitle = '';
     });
 });
 
 After(function (this: SmokeWorld, hook: ITestCaseHookParameter): Promise<void> {
   if (hook.result?.status === 'FAILED') {
-    return DriverRegistry.closeBrowser().then(() => {
+    return DriverRegistry.closeAutomationEngine().then(() => {
       new ExceptionManager().handleFailure({
         source: 'cucumber.after',
         message: 'Smoke scenario failed',
@@ -34,5 +33,5 @@ After(function (this: SmokeWorld, hook: ITestCaseHookParameter): Promise<void> {
     });
   }
 
-  return DriverRegistry.closeBrowser();
+  return DriverRegistry.closeAutomationEngine();
 });

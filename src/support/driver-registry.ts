@@ -1,41 +1,51 @@
-import { PlaywrightBrowserAdapter } from '../layer5-abstractions/adapter/playwright-browser.adapter';
-import { VibiumBrowserAdapter } from '../layer5-abstractions/adapter/vibium-browser.adapter';
-import { IBrowser } from '../layer5-abstractions/ports/ibrowser';
+import { PlaywrightBrowserAdapter } from '../layer5-abstractions/adapter/playwright/playwright-browser.adapter';
+import { SeleniumBrowserAdapter } from '../layer5-abstractions/adapter/selenium/selenium-browser.adapter';
+import { VibiumBrowserAdapter } from '../layer5-abstractions/adapter/vibium/vibium-browser.adapter';
+import { IAutomationEngine } from '../layer5-abstractions/ports/iautomation-engine';
 import { resolveRuntimeConfig, type DriverEngine } from './runtime-config';
 
-type BrowserFactory = () => Promise<IBrowser>;
+type EngineFactory = () => Promise<IAutomationEngine>;
 
 export class DriverRegistry {
-  private static browser: IBrowser | null = null;
+  private static engine: IAutomationEngine | null = null;
 
   public static getSelectedEngine(): DriverEngine {
     return resolveRuntimeConfig().driverEngine;
   }
 
-  public static async getBrowser(): Promise<IBrowser> {
-    if (DriverRegistry.browser) {
-      return DriverRegistry.browser;
+  public static async getAutomationEngine(): Promise<IAutomationEngine> {
+    if (DriverRegistry.engine) {
+      return DriverRegistry.engine;
     }
 
     const factory = DriverRegistry.resolveFactory(DriverRegistry.getSelectedEngine());
-    DriverRegistry.browser = await factory();
-    return DriverRegistry.browser;
+    DriverRegistry.engine = await factory();
+    await DriverRegistry.engine.newPage();
+    return DriverRegistry.engine;
   }
 
-  public static async closeBrowser(): Promise<void> {
-    if (!DriverRegistry.browser) {
+  public static async closeAutomationEngine(): Promise<void> {
+    if (!DriverRegistry.engine) {
       return;
     }
 
-    await DriverRegistry.browser.close();
-    DriverRegistry.browser = null;
+    await DriverRegistry.engine.close();
+    DriverRegistry.engine = null;
   }
 
-  private static resolveFactory(engine: DriverEngine): BrowserFactory {
+  private static resolveFactory(engine: DriverEngine): EngineFactory {
+    if (engine === 'playwright') {
+      return async () => PlaywrightBrowserAdapter.launch();
+    }
+
     if (engine === 'vibium') {
       return async () => VibiumBrowserAdapter.launch();
     }
 
-    return async () => PlaywrightBrowserAdapter.launch();
+    if (engine === 'selenium') {
+      return async () => SeleniumBrowserAdapter.launch();
+    }
+
+    throw new Error(`No automation engine factory for ${engine}.`);
   }
 }

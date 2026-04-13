@@ -1,11 +1,11 @@
 import { HomePage } from '../layer4-page-objects/home.page';
-import { IPage } from '../layer5-abstractions/ports/ipage';
+import { IAutomationEngine } from '../layer5-abstractions/ports/iautomation-engine';
 
 export class HomeSmokeTask {
   private readonly homePage: HomePage;
 
-  public constructor(page: IPage) {
-    this.homePage = new HomePage(page);
+  public constructor(engine: IAutomationEngine) {
+    this.homePage = new HomePage(engine);
   }
 
   public open(url: string): Promise<void> {

@@ -40,4 +40,14 @@ describe('async surface guard', () => {
 
     expect(violations).toEqual([]);
   });
+
+  it('uses IAutomationEngine contract in layers 2-4 and avoids low-level page port usage', async () => {
+    const pageObject = await readFile(path.resolve(process.cwd(), 'src/layer4-page-objects/home.page.ts'), 'utf8');
+    const task = await readFile(path.resolve(process.cwd(), 'src/tasks/home-smoke.task.ts'), 'utf8');
+
+    expect(pageObject).toContain('IAutomationEngine');
+    expect(task).toContain('IAutomationEngine');
+    expect(pageObject).not.toContain("ports/ipage");
+    expect(task).not.toContain("ports/ipage");
+  });
 });
