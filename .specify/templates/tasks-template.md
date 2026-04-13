@@ -56,8 +56,9 @@ navigation paths.
 **Purpose**: Project initialization and basic structure
 
 - [ ] T001 Create the hexagonal project structure per implementation plan
-- [ ] T002 Initialize TypeScript strict-mode tooling and shared config
+- [ ] T002 Initialize TypeScript strict-mode OOP tooling and shared config
 - [ ] T003 [P] Create baseline ports, adapter folders, and layer ownership rules
+- [ ] T004 [P] Scaffold Page Flow Pattern: one Page Object per page/component, navigation methods return next Page Object
 
 ---
 

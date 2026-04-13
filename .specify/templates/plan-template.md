@@ -48,6 +48,15 @@
   exploration, smart reruns, or hard failure apply.
 - Confirm TypeScript strict mode remains satisfied with no `any` and typed
   generics for reusable action abstractions.
+- Confirm every new or modified Page Object follows the Page Flow Pattern: scoped
+  to a single page or component and returns the next-state Page Object from
+  navigation methods. Verify no god-class aggregates interactions across pages.
+- Confirm all new source code follows OOP principles: behavior is encapsulated in
+  classes; no standalone multi-purpose utility functions outside designated
+  utility or factory classes are introduced.
+- Confirm async/await usage is minimized: every new async method is justified by
+  a genuine I/O or timer boundary in the adapter; Layers 1–4 use synchronous
+  APIs wherever the adapter permits.
 
 ## Project Structure
 
