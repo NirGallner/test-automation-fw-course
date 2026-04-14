@@ -155,7 +155,7 @@ allow filtering by test run, scenario, or layer without grep-based post-processi
 - All new automation scenarios MUST start as a `.feature` file (Gherkin first).
 - Step definitions MUST be written before any page object or flow implementation
   (BDD outside-in).
-- Each layer MUST have unit tests written in Vitest covering its public API in isolation using mocks/stubs.
+
 - PRs MUST include a Constitution Check confirming no cross-layer imports, no
   hardcoded browser names, and no direct `console.log` usage.
 - CI MUST run the full Cucumber suite on Chrome. Cross-browser runs are OPTIONAL
