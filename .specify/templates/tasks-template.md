@@ -18,12 +18,16 @@ description: "Task list template for feature implementation"
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
 
-## Path Conventions
+## Path Conventions (Clarivate Test Automation Framework — Constitution V)
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Layer 1 — Page Objects**: `src/pages/`
+- **Layer 2 — Business Flows**: `src/flows/`
+- **Layer 3 — Cucumber Bindings**: `src/steps/`, `src/hooks/`
+- **Layer 4 — Feature Files**: `features/`
+- **Driver Adapters**: `src/drivers/`
+- **API Clients**: `src/api/`
+- **Logger**: `src/utils/logger.ts`
+- **Config**: `config/`
 
 <!-- 
   ============================================================================

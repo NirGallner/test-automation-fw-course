@@ -17,21 +17,30 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: TypeScript (strict mode)
+**Primary Dependencies**: @cucumber/cucumber, pino, driver adapter (Playwright/Cypress/Selenium/Virbium)  
+**Storage**: N/A (test framework)  
+**Testing**: Cucumber.js + Chai assertions  
+**Target Platform**: Web browsers (Chrome default; Firefox/Safari/Edge via injection)
+**Project Type**: Test automation framework feature  
+**Performance Goals**: Suite execution time NEEDS CLARIFICATION per feature  
+**Constraints**: No cross-layer imports; no hardcoded browser names; pino-only logging  
+**Scale/Scope**: [Number of scenarios / page objects or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify compliance with the Clarivate Test Automation Framework Constitution v1.0.0:
+
+- [ ] **I. TypeScript & OOP** — All new classes use strict TypeScript; no `any`, no bare module-scope functions
+- [ ] **II. Tool-Agnostic Core** — Driver interactions hidden behind `IBrowser`/`IPage`/`IElement` interfaces; no driver import above `src/drivers/`
+- [ ] **III. Cucumber BDD (preferred)** — If using Cucumber: feature files authored before step definitions; no raw driver calls in step definitions; alternative runners permitted if layered architecture is maintained
+- [ ] **IV. SOLID** — Each class has a single responsibility; dependencies injected via constructor; no concrete-to-concrete coupling
+- [ ] **V. Layered Architecture** — No cross-layer imports (feature → steps → flows → pages → drivers only, downward)
+- [ ] **VI. Browser Injection** — No browser name hardcoded outside `src/drivers/`; default Chrome respected
+- [ ] **VII. API-First** — API assertions precede UI assertions for all scenarios with an observable API equivalent
+- [ ] **VIII. Pino Logging** — `console.log`/`console.error` absent from framework code; pino logger imported from `src/utils/logger.ts`
 
 ## Project Structure
 
@@ -56,43 +65,24 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+# Standard layout — Clarivate Test Automation Framework (Constitution V)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── drivers/          # Layer 0 — Driver adapters (IBrowser, IPage, IElement implementations)
+├── pages/            # Layer 1 — Page Object Model classes
+├── flows/            # Layer 2 — Business flow classes
+├── steps/            # Layer 3 — Cucumber step definitions (binding layer)
+├── hooks/            # Layer 3 — Cucumber before/after hooks
+├── api/              # API client classes (used by flows & steps for API-first checks)
+└── utils/
+    └── logger.ts     # Shared pino logger instance
 
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+features/             # Layer 4 — Gherkin feature files (*.feature)
+config/               # Browser config, environment config
+reports/              # Test execution reports
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: [Document which driver adapter is active and any
+feature-specific additions to the layers above]
 
 ## Complexity Tracking
 
