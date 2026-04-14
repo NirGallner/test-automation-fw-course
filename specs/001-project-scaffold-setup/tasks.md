@@ -12,28 +12,26 @@ description: "Task list for Project Scaffold Setup (Clarivate Test Automation Fr
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 [P] Create base project folder structure per plan.md
-- [ ] T002 [P] Create initial package.json in project root
-- [ ] T003 [P] Add .gitignore to root (track reports/ dir, ignore generated files)
-- [ ] T004 [P] Create tsconfig.json with strict mode, CommonJS, ES2022 target
-- [ ] T005 [P] Create cucumber.json config for Cucumber.js with ts-node/register
-- [ ] T006 [P] Create reports/ directory with .gitkeep
+ [X] T001 [P] Create base project folder structure per plan.md
+ [X] T002 [P] Create initial package.json in project root
+ [X] T003 [P] Add .gitignore to root (track reports/ dir, ignore generated files)
+ [X] T004 [P] Create tsconfig.json with strict mode, CommonJS, ES2022 target
+ [X] T005 [P] Create cucumber.json config for Cucumber.js with ts-node/register
+ [X] T006 [P] Create reports/ directory with .gitkeep
 
----
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T007 [P] Install all runtime and dev dependencies in package.json (pino, pino-pretty, @cucumber/cucumber, @playwright/test, typescript, ts-node, chai, @types/chai, @types/node, vitest)
-- [ ] T008 [P] Scaffold src/ directory and all mandatory subdirectories: drivers/, pages/, flows/, steps/, hooks/, api/, utils/
-- [ ] T009 [P] Create src/utils/logger.ts with pino singleton logger
-- [ ] T010 [P] Create src/drivers/interfaces.ts with IBrowser, IPage, IElement interfaces
-- [ ] T011 [P] Create src/drivers/playwright.adapter.ts implementing IBrowser
-- [ ] T012 [P] Create empty src/hooks/index.ts
-- [ ] T013 [P] Create empty src/api/ directory
+ [X] T007 [P] Install all runtime and dev dependencies in package.json (pino, pino-pretty, @cucumber/cucumber, @playwright/test, typescript, ts-node, chai, @types/chai, @types/node, vitest)
+ [X] T008 [P] Scaffold src/ directory and all mandatory subdirectories: drivers/, pages/, flows/, steps/, hooks/, api/, utils/
+ [X] T009 [P] Create src/utils/logger.ts with pino singleton logger
+ [X] T010 [P] Create src/drivers/interfaces.ts with IBrowser, IPage, IElement interfaces
+ [X] T011 [P] Create src/drivers/playwright.adapter.ts implementing IBrowser
+ [X] T012 [P] Create empty src/hooks/index.ts
+ [X] T013 [P] Create empty src/api/ directory
 
----
 
 ## Phase 3: User Story 1 - Developer Runs the Hello World Test (Priority: P1) 🎯 MVP
 
@@ -43,15 +41,14 @@ description: "Task list for Project Scaffold Setup (Clarivate Test Automation Fr
 
 ### Implementation for User Story 1
 
-- [ ] T014 [P] [US1] Create features/hello-world.feature with Gherkin scenario
-- [ ] T015 [P] [US1] Create src/pages/hello-world.page.ts with greet() method (calls logger.info)
-- [ ] T016 [P] [US1] Create src/flows/hello-world.flow.ts with runHelloWorld() (delegates to HelloWorldPage)
-- [ ] T017 [P] [US1] Create src/steps/hello-world.steps.ts with step definitions mapping to HelloWorldFlow
-- [ ] T018 [US1] Wire up all layers: feature → steps → flow → page → logger
-- [ ] T019 [US1] Add npm test script to package.json to run Cucumber suite
-- [ ] T020 [US1] Validate that running `npm test` produces log output and passing scenario
+ [X] T014 [P] [US1] Create features/hello-world.feature with Gherkin scenario
+ [X] T015 [P] [US1] Create src/pages/hello-world.page.ts with greet() method (calls logger.info)
+ [X] T016 [P] [US1] Create src/flows/hello-world.flow.ts with runHelloWorld() (delegates to HelloWorldPage)
+ [X] T017 [P] [US1] Create src/steps/hello-world.steps.ts with step definitions mapping to HelloWorldFlow
+ [X] T018 [US1] Wire up all layers: feature → steps → flow → page → logger
+ [X] T019 [US1] Add npm test script to package.json to run Cucumber suite
+ [X] T020 [US1] Validate that running `npm test` produces log output and passing scenario
 
----
 
 ## Phase 4: User Story 2 - Developer Navigates the Project Structure (Priority: P2)
 
@@ -61,11 +58,10 @@ description: "Task list for Project Scaffold Setup (Clarivate Test Automation Fr
 
 ### Implementation for User Story 2
 
-- [ ] T021 [P] [US2] Verify features/, src/steps/, src/flows/, src/pages/, src/drivers/, src/api/, src/utils/ directories exist
-- [ ] T022 [P] [US2] Verify hello-world.feature, hello-world.steps.ts, hello-world.flow.ts, hello-world.page.ts, interfaces.ts, logger.ts exist in correct locations
-- [ ] T023 [US2] Document directory conventions in quickstart.md
+ [X] T021 [P] [US2] Verify features/, src/steps/, src/flows/, src/pages/, src/drivers/, src/api/, src/utils/ directories exist
+ [X] T022 [P] [US2] Verify hello-world.feature, hello-world.steps.ts, hello-world.flow.ts, hello-world.page.ts, interfaces.ts, logger.ts exist in correct locations
+ [X] T023 [US2] Document directory conventions in quickstart.md
 
----
 
 ## Phase 5: User Story 3 - Developer Installs Dependencies in a Fresh Environment (Priority: P3)
 
@@ -75,19 +71,18 @@ description: "Task list for Project Scaffold Setup (Clarivate Test Automation Fr
 
 ### Implementation for User Story 3
 
-- [ ] T024 [P] [US3] Add install instructions to quickstart.md
-- [ ] T025 [P] [US3] Validate that `npm install` installs all dependencies without errors
-- [ ] T026 [US3] Validate that after install, `npm test` passes with no missing-module errors
+ [X] T024 [P] [US3] Add install instructions to quickstart.md
+ [X] T025 [P] [US3] Validate that `npm install` installs all dependencies without errors
+ [X] T026 [US3] Validate that after install, `npm test` passes with no missing-module errors
 
----
 
 ## Final Phase: Polish & Cross-Cutting Concerns
 
-- [ ] T027 [P] Add or update documentation in quickstart.md and research.md
-- [ ] T028 [P] Validate that logger uses pino and never console.log
-- [ ] T029 [P] Validate that all source files have correct imports (no cross-layer violations)
-- [ ] T030 [P] Validate that reports/cucumber-report.html is generated by `npm run test:report`
-- [ ] T031 Code cleanup and refactoring as needed
+ [X] T027 [P] Add or update documentation in quickstart.md and research.md
+ [X] T028 [P] Validate that logger uses pino and never console.log
+ [X] T029 [P] Validate that all source files have correct imports (no cross-layer violations)
+ [X] T030 [P] Validate that reports/cucumber-report.html is generated by `npm run test:report`
+ [X] T031 Code cleanup and refactoring as needed
 
 ---
 

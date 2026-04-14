@@ -27,15 +27,6 @@ npm test
 Expected output (local dev with pino-pretty):
 
 ```
-Feature: Hello World
-  Scenario: Developer verifies the scaffold is wired
-    ✔ Given the project dependencies have been installed
-    ✔ When the test suite is executed
-    ✔ Then the hello world scenario passes with a log entry
-
-[INFO] clarivate-framework: Hello, World! {"layer":"page","class":"HelloWorldPage"}
-
-1 scenario (1 passed)
 3 steps (3 passed)
 ```
 

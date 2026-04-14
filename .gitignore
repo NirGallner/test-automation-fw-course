@@ -38,6 +38,14 @@ coverage/
 # Never commit credentials or auth tokens
 *.pem
 *.key
+# ─── Editor and OS files ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ─── Reports ─────────────────────────────────────────────────────────────────
+reports/cucumber.json
 
 # ─── Editor / IDE ─────────────────────────────────────────────────────────────
 .idea/

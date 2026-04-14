@@ -58,6 +58,8 @@ interfaces, never the Playwright types directly.
 **Decision**: Add `pino` and `pino-pretty` as production dependencies. Create a singleton
 logger in `src/utils/logger.ts` that:
 - Exports one `Logger` instance via `export const logger`.
+- All logging in the framework must use this logger (never `console.log`).
+- Logger is imported by all layers that need to emit log entries.
 - Uses `pino-pretty` transport only when `NODE_ENV !== 'ci'` (detected via `process.env.CI`).
 - All other source files import this singleton — never instantiate pino directly.
 

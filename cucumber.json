@@ -1,0 +1,6 @@
+{
+  "format": ["progress-bar", "json:reports/cucumber.json"],
+  "require": ["src/steps/**/*.ts", "src/hooks/**/*.ts"],
+  "requireModule": ["ts-node/register"],
+  "paths": ["features/**/*.feature"]
+}

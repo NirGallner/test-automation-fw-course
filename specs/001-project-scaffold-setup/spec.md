@@ -1,5 +1,10 @@
 # Feature Specification: Project Scaffold Setup
 
+## Clarifications
+
+### Session 2026-04-14
+- Q: Should the folder structure include README files or inline comments in each directory, or are directory names alone sufficient for self-documenting structure? → A: Directory names alone are sufficient (no README/comments)
+
 **Feature Branch**: `006-scaffold-hello-world`  
 **Created**: 2026-04-14  
 **Status**: Draft  
@@ -40,7 +45,7 @@ service is required.
 
 A developer (new or returning) wants to know where to put a new feature file, where
 to write step definitions, and where to create page objects. The folder structure must
-be self-documenting — each concern lives in its own clearly named directory.
+be self-documenting — each concern lives in its own clearly named directory. Directory names alone are sufficient for self-documenting structure; no README files or inline comments are required in each directory.
 
 **Why this priority**: Without a predictable folder structure, every contributor is
 forced to infer conventions, slowing onboarding and increasing the risk of cross-layer

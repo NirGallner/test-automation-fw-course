@@ -1,0 +1,27 @@
+{
+  "name": "playwright-clarivate",
+  "version": "0.1.0",
+  "description": "Clarivate Test Automation Framework Scaffold",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js --require-module ts-node/register --require src/steps/**/*.ts --require src/hooks/**/*.ts --format progress-bar --format json:reports/cucumber.json",
+    "test:report": "cucumber-js --require-module ts-node/register --require src/steps/**/*.ts --require src/hooks/**/*.ts --format json:reports/cucumber.json && npx cucumber-html-reporter --source reports/cucumber.json --output reports/cucumber-report.html --theme bootstrap"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "@playwright/test": "^1.59.0",
+    "@types/chai": "^4.3.5",
+    "@types/node": "^20.11.30",
+    "chai": "^4.3.10",
+    "cucumber-html-reporter": "^7.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "pino": "^8.19.0",
+    "pino-pretty": "^10.3.0"
+  }
+}
