@@ -20,7 +20,7 @@
 **Language/Version**: TypeScript (strict mode)
 **Primary Dependencies**: @cucumber/cucumber, pino, driver adapter (Playwright/Cypress/Selenium/Virbium)  
 **Storage**: N/A (test framework)  
-**Testing**: Cucumber.js + Chai assertions  
+**Testing**: Cucumber.js + Chai assertions; Vitest (unit tests per layer)  
 **Target Platform**: Web browsers (Chrome default; Firefox/Safari/Edge via injection)
 **Project Type**: Test automation framework feature  
 **Performance Goals**: Suite execution time NEEDS CLARIFICATION per feature  

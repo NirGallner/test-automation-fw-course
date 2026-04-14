@@ -1,18 +1,18 @@
-# Compiled output
+# ─── Compiled TypeScript output ───────────────────────────────────────────────
 dist/
 build/
 out/
-*.js
-*.js.map
-*.d.ts
-
-# TypeScript cache
+# Scope *.js to compiled output dirs only — root-level JS config files (e.g.
+# cucumber.js, eslint.config.js) MUST NOT be ignored.
+dist/**/*.js
+dist/**/*.js.map
+dist/**/*.d.ts
 *.tsbuildinfo
 
-# Node modules
+# ─── Node modules ─────────────────────────────────────────────────────────────
 node_modules/
 
-# Logs
+# ─── Logs ─────────────────────────────────────────────────────────────────────
 logs/
 *.log
 npm-debug.log*
@@ -20,23 +20,26 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Runtime data
+# ─── Runtime data ─────────────────────────────────────────────────────────────
 pids/
 *.pid
 *.seed
 *.pid.lock
 
-# Coverage
+# ─── Coverage ─────────────────────────────────────────────────────────────────
 coverage/
 *.lcov
 .nyc_output/
 
-# Environment files
+# ─── Environment / secrets ────────────────────────────────────────────────────
 .env
 .env.local
 .env.*.local
+# Never commit credentials or auth tokens
+*.pem
+*.key
 
-# Editor directories and files
+# ─── Editor / IDE ─────────────────────────────────────────────────────────────
 .idea/
 .vscode/
 *.suo
@@ -45,15 +48,27 @@ coverage/
 *.sln
 *.sw?
 
-# OS files
+# ─── OS artefacts ─────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
-# Test output / reports
-reports/
+# ─── Test & Playwright artefacts ──────────────────────────────────────────────
+# The reports/ directory itself IS tracked (via reports/.gitkeep).
+# Only generated output files are ignored.
+reports/*.html
+reports/*.json
+reports/*.xml
 test-results/
 playwright-report/
+# Playwright browser downloads (only present if Playwright manages its own browsers)
+/playwright/.auth/
 
-# Dependency lock files (keep one, ignore others)
-# yarn.lock
-# pnpm-lock.yaml
+# ─── Cucumber intermediate output ─────────────────────────────────────────────
+# JSON output from --format json is an intermediate file; HTML is the deliverable.
+# Both are generated and should not be committed.
+# (already covered by reports/*.json above)
+
+# ─── Dependency lock files ────────────────────────────────────────────────────
+# Keep package-lock.json. Ignore alternative lock files if not in use.
+yarn.lock
+pnpm-lock.yaml
