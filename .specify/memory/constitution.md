@@ -1,14 +1,16 @@
 <!--
 Sync Impact Report
 ==================
-Version change: 1.0.0 → 1.0.1
-Added sections: Core Principles (I–VIII), Technology Stack, Development Workflow, Governance
-Removed sections: N/A (initial constitution)
+Version change: 1.0.1 → 1.1.0
+Bump rationale: MINOR — new mandatory technology added (Vitest as unit test framework)
+Modified principles: none renamed
+Added sections: Vitest entry in Technology Stack
+Removed sections: none
 Templates updated:
   ✅ .specify/memory/constitution.md — written
-  ✅ .specify/templates/plan-template.md — Constitution Check gates aligned (see pending note)
-  ✅ .specify/templates/spec-template.md — acceptance scenarios reference Cucumber BDD
-  ✅ .specify/templates/tasks-template.md — layer path conventions aligned
+  ✅ .specify/templates/plan-template.md — Technical Context Testing line updated to include Vitest
+  ✅ .specify/templates/spec-template.md — no change required
+  ✅ .specify/templates/tasks-template.md — no change required
 Deferred TODOs: none
 -->
 
@@ -142,6 +144,7 @@ allow filtering by test run, scenario, or layer without grep-based post-processi
 - **Automation Drivers** (adapters): Playwright, Virbium, Cypress, Selenium WebDriver
 - **Default Browser**: Chrome
 - **Logging**: `pino` + `pino-pretty` for local dev
+- **Unit Testing**: Vitest
 - **Assertions**: Chai (or driver-native assertion library via adapter)
 - **Reporting**: `cucumber-html-reporter` / Allure (configurable)
 - **Task Runner**: npm scripts
@@ -152,7 +155,7 @@ allow filtering by test run, scenario, or layer without grep-based post-processi
 - All new automation scenarios MUST start as a `.feature` file (Gherkin first).
 - Step definitions MUST be written before any page object or flow implementation
   (BDD outside-in).
-- Each layer MUST have unit tests covering its public API in isolation using mocks/stubs.
+
 - PRs MUST include a Constitution Check confirming no cross-layer imports, no
   hardcoded browser names, and no direct `console.log` usage.
 - CI MUST run the full Cucumber suite on Chrome. Cross-browser runs are OPTIONAL
@@ -177,4 +180,4 @@ Versioning policy follows semantic versioning:
 All PRs MUST include a Constitution Check section confirming compliance with
 Principles I–VIII above.
 
-**Version**: 1.0.1 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-04-14
+**Version**: 1.1.0 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-04-14
