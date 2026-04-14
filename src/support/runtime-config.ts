@@ -7,6 +7,8 @@ export interface RuntimeConfig {
   driverEngine: DriverEngine;
   /** Base URL that smoke tests navigate to. */
   baseUrl: string;
+  /** Base URL of the store under test, used by the add-to-cart feature. */
+  storeUrl: string;
   /** Tag strings that opt scenarios into fixture allocation. */
   fixtures: {
     /** Opts the scenario into both worker and scenario fixtures. */
@@ -51,11 +53,12 @@ export const resolveDriverEngine = (rawValue?: string): DriverEngine => {
 export const resolveRuntimeConfig = (): RuntimeConfig => {
   const driverEngine = resolveDriverEngine(process.env.DRIVER_ENGINE);
   const baseUrl = process.env.SMOKE_URL ?? 'https://example.com';
+  const storeUrl = process.env.STORE_URL ?? 'https://storedemo.testdino.com/';
   const fixtures = {
     fixtureTag: process.env.SMOKE_FIXTURE_TAG ?? '@fixtures',
     workerFixtureTag: process.env.SMOKE_WORKER_FIXTURE_TAG ?? '@fixture-worker',
     scenarioFixtureTag: process.env.SMOKE_SCENARIO_FIXTURE_TAG ?? '@fixture-scenario'
   };
 
-  return { driverEngine, baseUrl, fixtures };
+  return { driverEngine, baseUrl, storeUrl, fixtures };
 };

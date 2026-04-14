@@ -26,10 +26,10 @@ npm test && npm run lint
 TypeScript 5.x on Node.js LTS (>=20): Follow standard conventions
 
 ## Recent Changes
+- 004-page-object-architecture: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 003-before-specification: Added TypeScript 5.x on Node.js LTS (>=20) + `vitest`, `typescript`, `@types/node`, existing repository test stack (`playwright`, `@cucumber/cucumber`) unchanged
 - 002-before-specify-hook: Added TypeScript 5.x on Node.js LTS (>=20) + `playwright`, `@cucumber/cucumber`, `vitest`, `typescript`, `ts-node`, `tsx`, `@types/node`, `vibium` (vendored)
 
-- 001-base-project-scaffold: Added TypeScript 5.x on Node.js LTS (>=20) + `@playwright/test`, `@cucumber/cucumber`, `typescript`, `ts-node`, `tsx`, `@types/node`
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

@@ -4,12 +4,15 @@ import {
   Before,
   BeforeAll,
   ITestCaseHookParameter,
+  setDefaultTimeout,
   setWorldConstructor,
   World
 } from '@cucumber/cucumber';
 import { DriverRegistry } from './driver-registry';
 import { ExceptionManager } from './exception-manager';
 import { HomeSmokeTask } from '../tasks/home-smoke.task';
+import { AddToCartTask } from '../tasks/add-to-cart.task';
+import { CartPage } from '../layer4-page-objects/cart.page';
 import { IAutomationEngine } from '../layer5-abstractions/ports/iautomation-engine';
 import { AutomationFixtureManager, FixtureContext, FixtureRequest } from './lifecycle-fixtures';
 import { LifecycleLogger } from './lifecycle-logger';
@@ -23,6 +26,12 @@ import { resolveRuntimeConfig } from './runtime-config';
 class SmokeWorld extends World {
   public engine: IAutomationEngine | null = null;
   public smokeTask: HomeSmokeTask | null = null;
+  /** Add-to-cart task wired to the active engine for the product purchase flow. */
+  public addToCartTask: AddToCartTask | null = null;
+  /** Cart page captured during the add-to-cart flow; available to assertion steps. */
+  public cartPage: CartPage | null = null;
+  /** Product name set during the add-to-cart flow; available to assertion steps. */
+  public productName = '';
   public lastTitle = '';
   public scenarioName = '';
   // Dynamic fixture request/context
@@ -59,6 +68,13 @@ const resolveFixtureRequest = (hook: ITestCaseHookParameter): FixtureRequest => 
   return request;
 };
 
+/**
+ * Raises the default step timeout to 30 seconds to accommodate real browser
+ * navigations and network latency in end-to-end scenarios. The 5-second
+ * Cucumber default is too tight for page loads against a remote store URL.
+ */
+setDefaultTimeout(30_000);
+
 /** Resets the lifecycle logger at the start of the test run. */
 BeforeAll(function (): void {
   LifecycleLogger.reset();
@@ -83,6 +99,9 @@ Before(function (this: SmokeWorld, hook: ITestCaseHookParameter): Promise<void> 
     .then((engine) => {
       this.engine = engine;
       this.smokeTask = new HomeSmokeTask(engine);
+      this.addToCartTask = new AddToCartTask(engine);
+      this.cartPage = null;
+      this.productName = '';
       this.lastTitle = '';
     });
 });
